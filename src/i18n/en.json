@@ -7,7 +7,7 @@
   "Sign_in_to_Roamhome": "Sign in to Roamhome",
   "Change_Password": "Change Password",
   "Sign_up_to_Roamhome": "Sign up to Roamhome",
-  "Forgot_Password": "Forgot Password",
+  "Forgot_Password": "Forgot Password?",
   "Reset_Password": "Reset Password",
   "Password": "Password",
   "Confirm_Password": "Confirm Password",
@@ -25,7 +25,8 @@
   "change_password": {
     "Please_fill_the_below_data": "Please fill the below data",
     "New_Password": "New Password",
-    "Confirm_Password": "Confirm Password"
+    "Confirm_Password": "Confirm Password",
+    "Save": "Save"
   },
   "register": {
     "signup": "Sign up",
@@ -33,6 +34,13 @@
     "youCanSignin": "You can",
     "loginHere": "Login here !",
     "uploadImg": "Upload Image"
+  },
+  "rooms_table_head": {
+    "room_number": "Room Number",
+    "image": "Image",
+    "price": "Price",
+    "discount": "Discount",
+    "capacity": "Capacity"
   },
   "forgot_title": "Forgot password",
   "forgot_subtitle": "If you already have an account register",

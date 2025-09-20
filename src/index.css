@@ -22,11 +22,19 @@
 
 .auth-bg h2::after {
   position: absolute;
-  content: "Homes as unique as you.";
-  left: 0;
   top: 100%;
   font-size: 0.6em;
   font-weight: lighter;
+}
+
+html[lang="en"] .auth-bg h2::after {
+  content: "Homes as unique as you.";
+  left: 0;
+}
+
+html[lang="ar"] .auth-bg h2::after {
+  content: "منازل فريدة مثلك.";
+  right: 0;
 }
 
 .login-bg, .change-bg {

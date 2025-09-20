@@ -41,3 +41,12 @@ export interface IResetPasswordTypes {
   password: string;
   confirmPassword: string;
 }
+
+export interface RoomsListInterface {
+  _id: string;
+  roomNumber: string;
+  price: number;
+  capacity: number;
+  discount: number;
+  images: [string]
+}

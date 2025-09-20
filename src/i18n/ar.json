@@ -7,7 +7,7 @@
   "Sign_in_to_Roamhome": "تسجيل الدخول إلى روم هوم",
   "Change_Password": "تغيير كلمة المرور",
   "Sign_up_to_Roamhome": "التسجيل في روم هوم",
-  "Forgot_Password": "نسيت كلمة المرور",
+  "Forgot_Password": "نسيت كلمة المرور؟",
   "Reset_Password": "إعادة تعيين كلمة المرور",
   "Password": "كلمة المرور",
   "Confirm_Password": "تأكيد كلمة المرور",
@@ -25,7 +25,8 @@
   "change_password": {
     "Please_fill_the_below_data": "يرجى ملء البيانات أدناه",
     "New_Password": "كلمة المرور الجديدة",
-    "Confirm_Password": "تأكيد كلمة المرور"
+    "Confirm_Password": "تأكيد كلمة المرور",
+    "Save": "حفظ"
   },
   "register": {
     "signup": "إنشاء حساب",
@@ -33,6 +34,13 @@
     "youCanSignin": "يمكنك تسجيل الدخول",
     "loginHere": "من هنا !",
     "uploadImg": "رفع صورة"
+  },
+  "rooms_table_head": {
+    "room_number": "رقم الغرفة",
+    "image": "الصورة",
+    "price": "السعر",
+    "dicount": "تخفيض",
+    "capacity": "السعة"
   },
   "forgot_title": "نسيت كلمة المرور",
   "forgot_subtitle": "إذا كان لديك حساب بالفعل، سجل الدخول",

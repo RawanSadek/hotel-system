@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const baseURL = `https://upskilling-egypt.com:3000/api/v0/portal/`;
+const baseURL = `https://upskilling-egypt.com:3000/api/v0`;
+export const userPortalBaseURL = `/portal`;
+export const adminPortalBaseURL = `/admin`;
 
 export const axiosInstance = axios.create({
   baseURL,
@@ -18,13 +20,30 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// USERS_URLS
+// AUTH_URLs
 export const USERS_URLS = {
-  LOGIN: `/users/login`,
-  REGISTER: `/users`,
-  FORGOT_PASSWORD: `/users/forgot-password`,
-  RESET_PASSWORD: `users/reset-password`,
-  CHANGE_PASSWORD: `/users/change-password`,
-  GOOGLE_AUTH: `/users/auth/google`,
-  FACEBOOK_AUTH: `/users/auth/facebook`,
+  LOGIN: `${userPortalBaseURL}/users/login`,
+  REGISTER: `${userPortalBaseURL}/users`,
+  FORGOT_PASSWORD: `${userPortalBaseURL}/users/forgot-password`,
+  RESET_PASSWORD: `${userPortalBaseURL}users/reset-password`,
+  CHANGE_PASSWORD: `${userPortalBaseURL}/users/change-password`,
+  GOOGLE_AUTH: `${userPortalBaseURL}/users/auth/google`,
+  FACEBOOK_AUTH: `${userPortalBaseURL}/users/auth/facebook`,
 };
+
+
+// ADMIN PORTAL
+// ------------
+
+// Rooms URLs
+export const ROOMS_URLS = {
+  GET_ALL: `${adminPortalBaseURL}/rooms`,
+  CREATE_ROOM: `${adminPortalBaseURL}/rooms`,
+  UPDATE_ROOMS: (id:number) => `${adminPortalBaseURL}/rooms/${id}`,
+  GET_ROOM_DETAILS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
+  DELETE_ROOM: (id: number) => `${adminPortalBaseURL}/rooms/${id}`
+};
+
+
+// USER PORTAL
+// -----------

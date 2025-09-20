@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import FilledInput from "@mui/material/FilledInput";
-import { PASSWORD_VALIDATION } from "../../../Services/VALIDATIONS";
+import { PASSWORD_VALIDATION, REQUIRED_VALIDATION } from "../../../Services/VALIDATIONS";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
@@ -64,7 +64,7 @@ export default function ChangePassword() {
             {t("Password")}
           </Typography>
           <FilledInput
-            {...register("oldPassword", PASSWORD_VALIDATION)}
+            {...register("oldPassword", REQUIRED_VALIDATION('Old Password'))}
             type={showOldPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">
@@ -84,7 +84,7 @@ export default function ChangePassword() {
               </InputAdornment>
             }
             id="password"
-            placeholder="Please type here..."
+            placeholder={t('Type_Here')}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -130,7 +130,7 @@ export default function ChangePassword() {
               </InputAdornment>
             }
             id="password"
-            placeholder="Please type here..."
+            placeholder={t('Type_Here')}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -176,7 +176,7 @@ export default function ChangePassword() {
               </InputAdornment>
             }
             id="password"
-            placeholder="Please type here..."
+            placeholder={t('Type_Here')}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -211,7 +211,7 @@ export default function ChangePassword() {
             fontSize: "17px",
           }}
         >
-          {t("login.signIn")}
+          {t("change_password.Save")}
           <img
             hidden={!isSubmitting}
             src={loading}

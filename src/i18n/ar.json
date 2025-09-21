@@ -42,6 +42,11 @@
     "dicount": "تخفيض",
     "capacity": "السعة"
   },
+  "list_actions": {
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف"
+  },
   "forgot_title": "نسيت كلمة المرور",
   "forgot_subtitle": "إذا كان لديك حساب بالفعل، سجل الدخول",
   "forgot_login_text": "يمكنك",

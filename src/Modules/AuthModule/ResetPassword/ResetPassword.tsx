@@ -97,11 +97,6 @@ export default function ResetPassword() {
               },
             }}
           />
-          {errors.email && (
-            <Typography sx={{ color: "red" }}>
-              {errors.email.message as string}
-            </Typography>
-          )}
         </FormControl>
         {/* OTP*/}
         <FormControl fullWidth>
@@ -235,6 +230,7 @@ export default function ResetPassword() {
             padding: "15px",
             textTransform: "capitalize",
             fontSize: "17px",
+            cursor: isSubmitting ? "not-allowed" : "pointer",
           }}
         >
           Reset{" "}

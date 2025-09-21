@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import logo from "../../../Images/logo.png";
 import { useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 export default function AuthLayout() {
   const { pathname } = useLocation();
@@ -25,11 +26,13 @@ export default function AuthLayout() {
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <img
-              src={logo}
-              alt="logo"
-              style={{ alignSelf: "flex-start", margin: "30px" }}
-            />
+            <Link href="/landing-page">
+              <img
+                src={logo}
+                alt="logo"
+                style={{ alignSelf: "flex-start", margin: "30px" }}
+              />
+            </Link>
             <Box
               sx={{
                 mt: 3,

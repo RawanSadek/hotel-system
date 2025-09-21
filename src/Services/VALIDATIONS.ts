@@ -14,6 +14,11 @@ export const PASSWORD_VALIDATION = {
     }
 }
 
+export const CONFIRM_PASSWORD_VALIDATION = (password:string)=>({
+    required: 'Please confirm your password', 
+    validate: (value:string) => value === password || 'Passwords must match' 
+})
+
 export const REQUIRED_VALIDATION = (field_name: string) => ({
     required: `${field_name} is required!` 
 })
@@ -21,7 +26,7 @@ export const REQUIRED_VALIDATION = (field_name: string) => ({
 export const PHONE_VALIDATION = {
     required: 'Phone Number is required!',
     pattern: {
-        value: /^\+?[0-9\s\-]{9,15}$/,
+        value: /^\+?[0-9\s-]{9,15}$/,
         message: "Invalid phone number!!"
     }
 }

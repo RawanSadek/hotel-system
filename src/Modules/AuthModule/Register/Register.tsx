@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type { RegisterTypes } from "../../../Services/INTERFACES";
@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import FilledInput from "@mui/material/FilledInput";
 import {
+  CONFIRM_PASSWORD_VALIDATION,
   EMAIL_VALIDATION,
   PASSWORD_VALIDATION,
   PHONE_VALIDATION,
@@ -41,6 +42,8 @@ export default function ChangePassword() {
     register,
     handleSubmit,
     control,
+    watch,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<RegisterTypes>();
 
@@ -73,7 +76,10 @@ export default function ChangePassword() {
 
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // let imgRef = useRef();
+
+  useEffect(() => {
+    if (watch("confirmPassword")) trigger("confirmPassword");
+  }, [watch("password")]);
 
   return (
     <Container>
@@ -282,11 +288,12 @@ export default function ChangePassword() {
           </Typography>
           <Controller
             name="role"
-            control={control} // <-- comes from useForm()
-            rules={{ required: "Role is required" }}
-            render={() => (
+            control={control} 
+            rules={REQUIRED_VALIDATION("Role")} 
+            render={({field}) => (
               <Select
-                {...register("role", REQUIRED_VALIDATION("Role"))}
+              {...field}
+                // {...register("role", REQUIRED_VALIDATION("Role"))}
                 defaultValue=""
                 displayEmpty
                 renderValue={(selected) => {
@@ -297,7 +304,7 @@ export default function ChangePassword() {
                       </span>
                     );
                   }
-                  return selected;
+                  return selected.charAt(0).toUpperCase() + selected.slice(1);;
                 }}
                 id="role"
                 sx={{
@@ -376,7 +383,7 @@ export default function ChangePassword() {
             {t("Confirm_Password")}
           </Typography>
           <FilledInput
-            {...register("confirmPassword", PASSWORD_VALIDATION)}
+            {...register("confirmPassword", CONFIRM_PASSWORD_VALIDATION(watch("password")))}
             type={showConfirmPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">

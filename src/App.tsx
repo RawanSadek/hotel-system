@@ -20,6 +20,7 @@ import FacilitiesList from "./Modules/AdminModule/Facilities/FacilitiesList";
 import ADSList from "./Modules/AdminModule/ADS/ADSList";
 import BookingList from "./Modules/AdminModule/Booking/BookingList";
 import { AuthContextProvider } from "./Contexts/AuthContext/AuthContext";
+import UsersList from "./Modules/AdminModule/Users/UsersList";
 
 function App() {
 const routes = createBrowserRouter([
@@ -61,6 +62,8 @@ const routes = createBrowserRouter([
         {path: 'facilities', element: <FacilitiesList/>},
         {path: 'ads', element: <ADSList/>},
         {path: 'booking-list', element: <BookingList/>},
+        {path: 'users-list', element: <UsersList/>},
+
       ]
     },
 

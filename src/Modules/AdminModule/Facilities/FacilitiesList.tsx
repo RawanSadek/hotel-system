@@ -1,8 +1,3 @@
-
 export default function FacilitiesList() {
-  return (
-    <div>
-      FacilitiesList
-    </div>
-  )
+  return <div>FacilitiesList</div>;
 }

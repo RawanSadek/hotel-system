@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type { changePassDataTypes } from "../../../Services/INTERFACES";
-import { axiosInstance, USERS_URLS } from "../../../Services/END_POINTS";
+import { axiosInstance, USERS_URLS } from "./../../../Services/END_POINTS";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import Container from "@mui/material/Container";

@@ -20,6 +20,10 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Button, Menu, MenuItem } from "@mui/material";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 export default function RoomsList() {
   const { t } = useTranslation();
@@ -34,12 +38,23 @@ export default function RoomsList() {
 
   const [rooms, setrooms] = useState<RoomsListInterface[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
+  // const [totalRooms, setTotalRooms] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [activePage, setActivePage] = useState(1);
 
-  const getRooms = async () => {
+  const getRooms = async (pageNumber:number) => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance(ROOMS_URLS.GET_ALL);
+      const response = await axiosInstance(ROOMS_URLS.GET_ALL, {
+        params: {
+          page: pageNumber,
+          size: 10,
+        },
+      });
       setrooms(response?.data?.data?.rooms);
+      // setTotalRooms(response.data.data.totalCount);
+      setTotalPages(Math.ceil(response.data.data.totalCount / 10));
+      console.log(response.data);
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -47,8 +62,17 @@ export default function RoomsList() {
     setIsLoading(false);
   };
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
-    getRooms();
+    getRooms(activePage);
   }, []);
 
   return (
@@ -153,7 +177,65 @@ export default function RoomsList() {
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
-                    <MoreHorizIcon sx={{ cursor: "pointer" }} />
+                    <Button
+                      id="basic-button"
+                      aria-controls={open ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                      onClick={handleClick}
+                      sx={{
+                        color: "black",
+                        bgcolor: "transparent",
+                        "&:hover": {
+                          bgcolor: "#edededff",
+                        },
+                      }}
+                    >
+                      <MoreHorizIcon />
+                    </Button>
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      slotProps={{
+                        list: {
+                          "aria-labelledby": "basic-button",
+                        },
+                      }}
+                      sx={{}}
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <RemoveRedEyeIcon
+                          sx={{
+                            color: "#203FC7",
+                            fontSize: "22px",
+                            marginX: "10px",
+                          }}
+                        />{" "}
+                        {t("list_actions.view")}
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <BorderColorIcon
+                          sx={{
+                            color: "#203FC7",
+                            fontSize: "22px",
+                            marginX: "10px",
+                          }}
+                        />{" "}
+                        {t("list_actions.edit")}
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <DeleteOutlineIcon
+                          sx={{
+                            color: "#203FC7",
+                            fontSize: "22px",
+                            marginX: "10px",
+                          }}
+                        />{" "}
+                        {t("list_actions.delete")}
+                      </MenuItem>
+                    </Menu>
                   </TableCell>
                 </TableRow>
               ))}
@@ -163,19 +245,24 @@ export default function RoomsList() {
             <TableRow>
               <TableCell colSpan={6}>
                 <Stack spacing={2}>
-                  <Pagination
-                  
-                    count={10}
-                    renderItem={(item) => (
-                      <PaginationItem sx={{marginX:'auto'}}
-                        slots={{
-                          previous: ArrowBackIcon,
-                          next: ArrowForwardIcon,
-                        }}
-                        {...item}
-                      />
-                    )}
-                  />
+                  <Box display="flex" justifyContent="flex-end">
+                    <Pagination
+                      count={totalPages}
+                      onChange={(event, value) => {
+                        setActivePage(value);
+                        getRooms(value); 
+                      }}
+                      renderItem={(item) => (
+                        <PaginationItem
+                          slots={{
+                            previous: ArrowBackIcon,
+                            next: ArrowForwardIcon,
+                          }}
+                          {...item}
+                        />
+                      )}
+                    />
+                  </Box>
                 </Stack>
               </TableCell>
             </TableRow>

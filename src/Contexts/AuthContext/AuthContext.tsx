@@ -1,4 +1,4 @@
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import type { AuthContextType, AuthProviderProps } from "../../Services/INTERFACES";
@@ -13,15 +13,22 @@ export const AuthContext = createContext<AuthContextType>({
 export function AuthContextProvider({ children }: AuthProviderProps) {
 
   const [loginData, setLoginData] = useState(() => {
-    const token = localStorage.getItem("token");
-    return token ? jwtDecode(token) : null;
+    const userData = localStorage.getItem("userData");
+    return userData ? JSON.parse(userData) : null;
+    // const token = localStorage.getItem("token");
+    // return token ? jwtDecode(token) : null;
   });
 
+  // const userData = localStorage.getItem("userData");
+
   const getLoginData = () => {
-    const encodedData = localStorage.getItem('token');
-    if (!encodedData) return;
-    const decodedData = jwtDecode(encodedData);
-    setLoginData(decodedData);
+    // const encodedData = localStorage.getItem('token');
+    // if (!encodedData) return;
+    // const decodedData = jwtDecode(encodedData);
+    // setLoginData(decodedData);
+
+    const userData = localStorage.getItem('userData');
+    setLoginData(userData ? JSON.parse(userData) : null);
 
   }
 

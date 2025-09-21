@@ -31,7 +31,7 @@ i18n.on("languageChanged", (lng) => {
     document.documentElement.setAttribute("lang", "en");
     document.documentElement.setAttribute("dir", "ltr");
   }
-  console.log(document.documentElement)
+  // console.log(document.documentElement)
 });
 
 export default i18n;

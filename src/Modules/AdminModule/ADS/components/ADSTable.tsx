@@ -55,7 +55,9 @@ const ADSTable = () => {
     setAnchorEl(event.currentTarget);
     setSelectedAds(id);
   };
-
+  const handleOpenPopUp = () => {
+    setEditAddPopUpOpen(true);
+  };
   const handleMenuClose = () => {
     setAnchorEl(null);
     setSelectedAds(null);
@@ -242,13 +244,8 @@ const ADSTable = () => {
           />
           {t("View ")}
         </MenuItem>
-        <MenuItem>
-          <EditIcon
-            onClick={() => {
-              setEditAddPopUpOpen(true);
-            }}
-            sx={{ mr: 1, color: "#203FC7", fontSize: "medium" }}
-          />
+        <MenuItem onClick={handleOpenPopUp}>
+          <EditIcon sx={{ mr: 1, color: "#203FC7", fontSize: "medium" }} />
           {t("Edit")}
         </MenuItem>
         <MenuItem onClick={() => setDeleteDialogOpen(true)}>

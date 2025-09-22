@@ -3,7 +3,6 @@ import { Box, CircularProgress } from "@mui/material";
 import {
   axiosInstance,
   ROOMS_URLS,
-  BOOKING_URLS,
   FACILITIES_URLS,
   ADS_URLS,
 } from "../../../../Services/END_POINTS";
@@ -31,17 +30,12 @@ export default function DashBoard() {
   const [getRoomFacilitieslist, setRoomFacilitiesList] =
     useState<FacilitiesList>();
   const [getAdslist, setAdsList] = useState<AdsList>();
-  const [getBookinglist, setBookingList] = useState();
+
   const [isLoading, setIsLoading] = useState(true);
 
   const getRooms = async () => {
     const response = await axiosInstance.get(ROOMS_URLS.GET_ALL);
     setRoomsList(response.data.data);
-  };
-
-  const getBooking = async () => {
-    const response = await axiosInstance.get(BOOKING_URLS.GET_ALL);
-    setBookingList(response.data.data);
   };
 
   const getFacilities = async () => {
@@ -60,7 +54,7 @@ export default function DashBoard() {
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([getRooms(), getFacilities(), getAds(), getBooking()])
+    Promise.all([getRooms(), getFacilities(), getAds()])
       .then(() => setIsLoading(false))
       .catch(() => setIsLoading(false));
   }, []);

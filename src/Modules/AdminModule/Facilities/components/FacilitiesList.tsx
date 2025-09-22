@@ -55,7 +55,9 @@ export default function FacilitiesList() {
     setAnchorEl(event.currentTarget);
     setSelectedFacility(id);
   };
-
+  const handleOpenPopUp = () => {
+    setEditAddPopUpOpen(true);
+  };
   const handleMenuClose = () => {
     setAnchorEl(null);
     setSelectedFacility(null);
@@ -221,11 +223,8 @@ export default function FacilitiesList() {
           horizontal: "right",
         }}
       >
-        <MenuItem>
-          <EditIcon
-            onClick={() => setEditAddPopUpOpen(true)}
-            sx={{ mr: 1, color: "#203FC7", fontSize: "medium" }}
-          />
+        <MenuItem onClick={() => setEditAddPopUpOpen(true)}>
+          <EditIcon sx={{ mr: 1, color: "#203FC7", fontSize: "medium" }} />
           {t("Edit")}
         </MenuItem>
         <MenuItem onClick={() => setDeleteDialogOpen(true)}>
@@ -236,6 +235,7 @@ export default function FacilitiesList() {
       <EditAddPopUp
         open={editAddPopUpOpen}
         handleClose={() => setEditAddPopUpOpen(false)}
+        isEdit={Boolean(selectedFacility)}
         refetchData={() => getFacilities({ page: currentPage })}
         facilityData={selectedFacility}
       />

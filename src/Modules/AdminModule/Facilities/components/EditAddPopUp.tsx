@@ -21,7 +21,7 @@ interface EditAddPopUpProps {
   handleClose: () => void;
   isEdit?: boolean;
   facilityData?: { _id: string; name: string } | null;
-  refetchData: React.FC<1>;
+  refetchData: () => void;
 }
 
 interface IFacilityForm {
@@ -58,7 +58,7 @@ export default function EditAddPopUp({
         await axiosInstance.post(FACILITIES_URLS.CREATE_FACILITY, data);
         toast.success("Facility added successfully");
       }
-      refetchData(1);
+      refetchData();
       handleClose();
       reset();
     } catch (err) {

@@ -42,6 +42,12 @@ export const ROOMS_URLS = {
   GET_ROOM_DETAILS: (id: string) => `${adminPortalBaseURL}/rooms/${id}`,
   DELETE_ROOM: (id: string) => `${adminPortalBaseURL}/rooms/${id}`,
 };
+// Users Dashboard URLs
+export const USERDashBoard_URLS = {
+  GET_ALL: `${adminPortalBaseURL}/users`,
+  GET_USER_DETAILS: (id: number) => `${adminPortalBaseURL}/users/${id}`,
+};
+
 
 // Booking URLs
 export const BOOKING_URLS = {

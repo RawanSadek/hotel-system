@@ -81,7 +81,15 @@
     "edit": "تعديل",
     "delete": "حذف"
   },
-  "SideBar": {
+
+   "Users_table_head": {
+    "userName": "أسم المستخدم",
+    "image": "الصورة",
+    "email": "البريد الإلكتروني",
+    "role": "نوع المستخدم",
+    "phoneNumber": "رقم الهاتف"
+  },
+   "SideBar": {
     "Home": "الصفحةالرئيسية",
     "Users": "المستخدمين"
   },

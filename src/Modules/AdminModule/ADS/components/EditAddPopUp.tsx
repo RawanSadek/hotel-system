@@ -31,8 +31,8 @@ interface EditAddPopUpProps {
   handleClose: () => void;
   isEdit?: boolean;
   ADSData?: { _id: string; name: string } | null;
-  refetchData: () => void;
-  selectedAdd?: IselectedAdd | null | undefined;
+  refetchData: React.FC<1>;
+  selectedAdd?: IselectedAdd | null | string;
 }
 
 export default function EditAddPopUp({
@@ -83,7 +83,7 @@ export default function EditAddPopUp({
         await axiosInstance.post(ADS_URLS.CREATE_AD, data);
         toast.success("ADS added successfully");
       }
-      refetchData();
+      refetchData(1);
       handleClose();
       reset();
     } catch (err) {

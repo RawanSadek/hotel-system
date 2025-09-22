@@ -27,6 +27,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteConfirmation from "./../../../Shared/DeleteConfirmation/DeleteConfirmation";
 import EditAddPopUp from "./EditAddPopUp";
+import FacilitiesHeader from "./FacilitiesHeader";
 export default function FacilitiesList() {
   const { t } = useTranslation();
   const tableCols = [
@@ -49,10 +50,10 @@ export default function FacilitiesList() {
   const [editAddPopUpOpen, setEditAddPopUpOpen] = useState(false);
   const handleMenuClick = (
     event: React.MouseEvent<HTMLElement | SVGSVGElement>,
-    facility: IFacilities
+    id: string
   ) => {
     setAnchorEl(event.currentTarget);
-    setSelectedFacility(facility);
+    setSelectedFacility(id);
   };
 
   const handleMenuClose = () => {
@@ -62,7 +63,7 @@ export default function FacilitiesList() {
   const handleDelete = async () => {
     try {
       await axiosInstance.delete(
-        `${FACILITIES_URLS.DELETE_FACILITY}${selectedFacility?._id}`
+        FACILITIES_URLS.DELETE_FACILITY(`${selectedFacility}`)
       );
       toast.success(t("Facility deleted successfully"));
       getFacilities({ page: currentPage });
@@ -92,6 +93,7 @@ export default function FacilitiesList() {
 
   return (
     <>
+      <FacilitiesHeader getFacilities={getFacilities} />
       <TableContainer
         sx={{
           borderTopLeftRadius: "8px",
@@ -169,7 +171,7 @@ export default function FacilitiesList() {
                     sx={{ paddingY: "10px", border: "none" }}
                   >
                     <MoreHorizIcon
-                      onClick={(e) => handleMenuClick(e, facility)}
+                      onClick={(e) => handleMenuClick(e, facility._id)}
                       sx={{ cursor: "pointer" }}
                     />
                   </TableCell>

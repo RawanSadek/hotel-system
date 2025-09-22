@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 import Stack from "@mui/material/Stack";
 import EditAddPopUp from "./EditAddPopUp";
 import { useState } from "react";
-
-const ADSHeader = () => {
+interface IAdsProp {
+  getADS: React.FC<1>;
+}
+const ADSHeader = ({ getADS }: IAdsProp) => {
   const { t } = useTranslation();
   const [openPopup, setOpenPopup] = useState(false);
   const isSubmitting = false;
@@ -59,7 +61,7 @@ const ADSHeader = () => {
         open={openPopup}
         handleClose={() => setOpenPopup(false)}
         isEdit={false}
-        refetchData={() => {}}
+        refetchData={getADS}
         selectedAdd={null}
       />
     </>

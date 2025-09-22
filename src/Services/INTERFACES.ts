@@ -48,5 +48,14 @@ export interface RoomsListInterface {
   price: number;
   capacity: number;
   discount: number;
-  images: [string]
+  images: [string];
+}
+export interface IFacilities {
+  _id: string;
+  name: string;
+  createdAt: string;
+  createdBy: {
+    _id: string;
+    userName: string;
+  };
 }

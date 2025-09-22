@@ -42,6 +42,17 @@
     "discount": "Discount",
     "capacity": "Capacity"
   },
+  "facilities": {
+    "add_new_facility": "Add New Facility",
+    "facilities_table_details": "Facilities Table Details",
+    "check_all_details": "You can check all details",
+    "facilities_table_head": {
+      "id": "ID",
+      "name": "Name",
+      "createdBy": "Created By",
+      "createdAt": "Created At"
+    }
+  },
   "forgot_title": "Forgot password",
   "forgot_subtitle": "If you already have an account register",
   "forgot_login_text": "You can",

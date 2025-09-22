@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const baseURL = `https://upskilling-egypt.com:3000/api/v0`;
@@ -39,9 +38,9 @@ export const USERS_URLS = {
 export const ROOMS_URLS = {
   GET_ALL: `${adminPortalBaseURL}/rooms`,
   CREATE_ROOM: `${adminPortalBaseURL}/rooms`,
-  UPDATE_ROOMS: (id:string) => `${adminPortalBaseURL}/rooms/${id}`,
+  UPDATE_ROOMS: (id: string) => `${adminPortalBaseURL}/rooms/${id}`,
   GET_ROOM_DETAILS: (id: string) => `${adminPortalBaseURL}/rooms/${id}`,
-  DELETE_ROOM: (id: string) => `${adminPortalBaseURL}/rooms/${id}`
+  DELETE_ROOM: (id: string) => `${adminPortalBaseURL}/rooms/${id}`,
 };
 
 // Booking URLs
@@ -58,22 +57,21 @@ export const FACILITIES_URLS = {
   GET_ALL: (page: number) =>
     `${adminPortalBaseURL}/room-facilities?pageNumber=${page}`,
   CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
-  UPDATE_FACILITY: (id: number) =>
+  UPDATE_FACILITY: (id: string) =>
     `${adminPortalBaseURL}/room-facilities/${id}`,
-  GET_FACILITY_DETAILS: (id: number) =>
+  GET_FACILITY_DETAILS: (id: string) =>
     `${adminPortalBaseURL}/room-facilities/${id}`,
-  DELETE_FACILITY: (id: number) =>
+  DELETE_FACILITY: (id: string) =>
     `${adminPortalBaseURL}/room-facilities/${id}`,
 };
 // ADS URLs
 export const ADS_URLS = {
   GET_ALL: (page: number) => `${adminPortalBaseURL}/ads?pageNumber=${page}`,
   CREATE_AD: `${adminPortalBaseURL}/ads`,
-  UPDATE_AD: (id: number) => `${adminPortalBaseURL}/ads/${id}`,
-  GET_AD_DETAILS: (id: number) => `${adminPortalBaseURL}/ads/${id}`,
-  DELETE_AD: (id: number) => `${adminPortalBaseURL}/ads/${id}`,
+  UPDATE_AD: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
+  GET_AD_DETAILS: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
+  DELETE_AD: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
 };
 
 // USER PORTAL
 // -----------
-

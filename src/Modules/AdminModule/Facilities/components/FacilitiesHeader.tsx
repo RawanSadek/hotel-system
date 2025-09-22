@@ -4,8 +4,11 @@ import { useTranslation } from "react-i18next";
 import Stack from "@mui/material/Stack";
 import EditAddPopUp from "./EditAddPopUp";
 import { useState } from "react";
+interface IFacilitiesHeaerProp {
+  getFacilities: React.FC<1>;
+}
 
-const FacilitiesHeader = () => {
+const FacilitiesHeader = ({ getFacilities }: IFacilitiesHeaerProp) => {
   const { t } = useTranslation();
   const [openPopup, setOpenPopup] = useState(false);
   const isSubmitting = false;
@@ -59,7 +62,7 @@ const FacilitiesHeader = () => {
         open={openPopup}
         handleClose={() => setOpenPopup(false)}
         isEdit={false}
-        refetchData={() => {}}
+        refetchData={getFacilities}
       />
     </>
   );

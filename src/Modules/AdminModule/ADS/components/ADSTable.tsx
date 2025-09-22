@@ -24,6 +24,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteConfirmation from "./../../../Shared/DeleteConfirmation/DeleteConfirmation";
 import EditAddPopUp from "./EditAddPopUp";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import ADSHeader from "./ADSHeader";
 const ADSTable = () => {
   const { t } = useTranslation();
   const tableCols = [
@@ -43,14 +45,15 @@ const ADSTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [selectedAds, setSelectedAds] = useState<IADS | null>(null);
+  const [selectedAds, setSelectedAds] = useState<string | null>(null);
+  console.log(selectedAds);
   const [editAddPopUpOpen, setEditAddPopUpOpen] = useState(false);
   const handleMenuClick = (
     event: React.MouseEvent<HTMLElement | SVGSVGElement>,
-    Ads: IADS
+    id: string
   ) => {
     setAnchorEl(event.currentTarget);
-    setSelectedAds(Ads);
+    setSelectedAds(id);
   };
 
   const handleMenuClose = () => {
@@ -59,7 +62,7 @@ const ADSTable = () => {
   };
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`${ADS_URLS.DELETE_AD}${selectedAds?._id}`);
+      await axiosInstance.delete(`${ADS_URLS.DELETE_AD(`${selectedAds}`)}`);
       toast.success(t("Ads deleted successfully"));
       getADS({ page: currentPage });
     } catch (err) {
@@ -87,6 +90,7 @@ const ADSTable = () => {
   }, [currentPage]);
   return (
     <>
+      <ADSHeader getAds={getADS} />
       <TableContainer
         sx={{
           borderTopLeftRadius: "8px",
@@ -182,7 +186,7 @@ const ADSTable = () => {
                     sx={{ paddingY: "10px", border: "none" }}
                   >
                     <MoreHorizIcon
-                      onClick={(e) => handleMenuClick(e, Ads)}
+                      onClick={(e) => handleMenuClick(e, Ads._id)}
                       sx={{ cursor: "pointer" }}
                     />
                   </TableCell>
@@ -233,8 +237,16 @@ const ADSTable = () => {
         }}
       >
         <MenuItem>
+          <VisibilityIcon
+            sx={{ mr: 1, color: "#203FC7", fontSize: "medium" }}
+          />
+          {t("View ")}
+        </MenuItem>
+        <MenuItem>
           <EditIcon
-            onClick={() => setEditAddPopUpOpen(true)}
+            onClick={() => {
+              setEditAddPopUpOpen(true);
+            }}
             sx={{ mr: 1, color: "#203FC7", fontSize: "medium" }}
           />
           {t("Edit")}

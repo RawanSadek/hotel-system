@@ -42,6 +42,13 @@
     "dicount": "تخفيض",
     "capacity": "السعة"
   },
+  "Bookings_table_head": {
+    "room_number": "رقم الغرفة",
+    "price": "السعر",
+    "strat_date": "تاريخ البداية",
+    "end_date": "تاريخ النهاية",
+    "user": "المستخدم"
+  },
   "facilities": {
     "add_new_facility": "إضافة مرفق جديد",
     "facilities_table_details": "تفاصيل جدول المرافق",

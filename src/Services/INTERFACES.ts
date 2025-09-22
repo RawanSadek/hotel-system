@@ -50,3 +50,18 @@ export interface RoomsListInterface {
   discount: number;
   images: [string]
 }
+
+export interface BookingListInterface {
+  _id: string;
+  room: { roomNumber: string };
+  totalPrice: number;
+  startDate: string;
+  endDate: string;
+  user: { userName: string }
+}
+
+export interface BookingPopUpInterface {
+  open: boolean;
+  handleClose: () => void;
+  bookingId?: string | null;
+}

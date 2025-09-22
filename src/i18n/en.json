@@ -42,6 +42,13 @@
     "discount": "Discount",
     "capacity": "Capacity"
   },
+  "Bookings_table_head": {
+    "room_number": "Room Number",
+    "price": "Price",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "user": "User"
+  },
   "facilities": {
     "add_new_facility": "Add New Facility",
     "facilities_table_details": "Facilities Table Details",

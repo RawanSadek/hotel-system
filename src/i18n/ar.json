@@ -42,6 +42,17 @@
     "dicount": "تخفيض",
     "capacity": "السعة"
   },
+  "facilities": {
+    "add_new_facility": "إضافة مرفق جديد",
+    "facilities_table_details": "تفاصيل جدول المرافق",
+    "check_all_details": "يمكنك التحقق من جميع التفاصيل",
+    "facilities_table_head": {
+      "id": "المعرف",
+      "name": "الاسم",
+      "createdBy": "تم الإنشاء بواسطة",
+      "createdAt": "تم الإنشاء في"
+    }
+
   "list_actions": {
     "view": "عرض",
     "edit": "تعديل",
@@ -50,7 +61,7 @@
    "SideBar": {
     "Home": "الصفحةالرئيسية",
     "Users": "المستخدمين"
-    
+ 
   },
   "forgot_title": "نسيت كلمة المرور",
   "forgot_subtitle": "إذا كان لديك حساب بالفعل، سجل الدخول",

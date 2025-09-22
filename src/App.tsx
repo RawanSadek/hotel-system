@@ -16,25 +16,26 @@ import Favourites from "./Modules/UserModule/Favourites/Favourites";
 import AdminDashboard from "./Modules/AdminModule/AdminDashboard/AdminDashboard";
 import RoomsList from "./Modules/AdminModule/Rooms/RoomsList";
 import RoomData from "./Modules/AdminModule/Rooms/RoomData";
-import FacilitiesList from "./Modules/AdminModule/Facilities/FacilitiesList";
-import ADSList from "./Modules/AdminModule/ADS/ADSList";
 import BookingList from "./Modules/AdminModule/Booking/BookingList";
 import { AuthContextProvider } from "./Contexts/AuthContext/AuthContext";
+import FacilitiesView from "./Modules/AdminModule/Facilities/FacilitiesView";
+import ADSList from "./Modules/AdminModule/ADS/ADSList";
 import UsersList from "./Modules/AdminModule/Users/UsersList";
 
+
 function App() {
-const routes = createBrowserRouter([
+  const routes = createBrowserRouter([
     {
-      path:'',
-      element: <MasterLayout/>,
-      errorElement: <NotFound/>,
+      path: "",
+      element: <MasterLayout />,
+      errorElement: <NotFound />,
       children: [
-        {index: true, element: <LandingPage/>},
-        {path: 'landing-page', element: <LandingPage/>},
-        {path: 'room-details', element: <RoomDetails/>},
-        {path: 'explore', element: <Explore/>},
-        {path: 'favourits', element: <Favourites/>},
-      ]
+        { index: true, element: <LandingPage /> },
+        { path: "landing-page", element: <LandingPage /> },
+        { path: "room-details", element: <RoomDetails /> },
+        { path: "explore", element: <Explore /> },
+        { path: "favourits", element: <Favourites /> },
+      ],
     },
     {
       path: "",
@@ -45,32 +46,30 @@ const routes = createBrowserRouter([
         { path: "register", element: <Register /> },
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
-        { path: "change-password", element: <ChangePassword />},
+        { path: "change-password", element: <ChangePassword /> },
       ],
     },
 
     {
-      path:'dashboard',
-      element: <AdminLayout/>,
-      errorElement: <NotFound/>,
+      path: "dashboard",
+      element: <AdminLayout />,
+      errorElement: <NotFound />,
       children: [
         {index: true, element: <AdminDashboard/>},
         {path: 'rooms', element: <RoomsList/>},
         {path: 'add-room', element: <RoomData/>},
         {path: 'edit-room/:id', element: <RoomData/>},
         {path: 'view-room/:id', element: <RoomData/>},
-        {path: 'facilities', element: <FacilitiesList/>},
+        { path: "facilities", element: <FacilitiesView /> },
         {path: 'ads', element: <ADSList/>},
         {path: 'booking-list', element: <BookingList/>},
         {path: 'users-list', element: <UsersList/>},
-
       ]
     },
-
   ]);
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <AuthContextProvider>
         <RouterProvider router={routes}></RouterProvider>
       </AuthContextProvider>

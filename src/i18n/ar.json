@@ -52,16 +52,16 @@
       "createdBy": "تم الإنشاء بواسطة",
       "createdAt": "تم الإنشاء في"
     }
+  },
 
   "list_actions": {
     "view": "عرض",
     "edit": "تعديل",
     "delete": "حذف"
   },
-   "SideBar": {
+  "SideBar": {
     "Home": "الصفحةالرئيسية",
     "Users": "المستخدمين"
- 
   },
   "forgot_title": "نسيت كلمة المرور",
   "forgot_subtitle": "إذا كان لديك حساب بالفعل، سجل الدخول",

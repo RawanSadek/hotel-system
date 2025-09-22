@@ -52,16 +52,16 @@
       "createdBy": "Created By",
       "createdAt": "Created At"
     }
+  },
 
   "list_actions": {
     "view": "View",
     "edit": "Edit",
     "delete": "Delete"
   },
-   "SideBar": {
+  "SideBar": {
     "Home": "Home",
     "Users": "Users"
-
   },
   "forgot_title": "Forgot password",
   "forgot_subtitle": "If you already have an account register",

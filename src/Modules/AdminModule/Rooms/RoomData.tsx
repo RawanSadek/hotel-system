@@ -11,11 +11,6 @@ import {
   Typography,
   type SelectChangeEvent,
 } from "@mui/material";
-// import { useTranslation } from "react-i18next";
-import type {
-  FacilitiesInterface,
-  RoomsListInterface,
-} from "../../../Services/INTERFACES";
 import { useForm } from "react-hook-form";
 import {
   axiosInstance,
@@ -27,6 +22,7 @@ import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
+import type { FacilitiesInterface, RoomsListInterface } from "../../../Services/INTERFACE";
 
 interface RoomDataProps {
   isEdit: boolean;

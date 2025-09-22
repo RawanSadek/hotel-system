@@ -49,4 +49,10 @@ export interface RoomsListInterface {
   capacity: number;
   discount: number;
   images: [string];
+   imgs: [string]
+}
+
+export interface FacilitiesInterface {
+  _id: string;
+  name:string
 }

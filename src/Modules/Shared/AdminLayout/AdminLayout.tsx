@@ -5,27 +5,39 @@ import AdminNavbar from "./../AdminNavbar/AdminNavbar";
 import AdminSidebar from "../AdminSidebar/AdminSidebar";
 import { useTranslation } from "react-i18next";
 import "../../../i18n/i18n";
+import React from "react";
+import { Toolbar, useMediaQuery } from "@mui/material";
+const drawerWidth = 260;
 
 export default function AdminLayout() {
   const { i18n } = useTranslation();
+   const isDesktop = useMediaQuery("(min-width:900px)");
+  const [open, setOpen] = React.useState<boolean>(isDesktop);
+  React.useEffect(() => setOpen(isDesktop), [isDesktop]);
+
   const toggleLang = () => {
     i18n.changeLanguage(i18n.language === "ar" ? "en" : "ar");
   };
   return (
-    <Box component={"div"} sx={{ display: "flex" }}>
-      <Box
-        component={"nav"}
-        sx={{ width: "240px", bgcolor: "#f5f5f5", minHeight: "100vh" }}
-      >
-        <AdminSidebar />
-      </Box>
-      <Box component={"div"} sx={{ flexGrow: 1, p: 3 }}>
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-          <Button variant="outlined" onClick={toggleLang}>
-            {i18n.language === "ar" ? "English" : "العربية"}
-          </Button>
-        </Box>
-        <AdminNavbar />
+   <Box sx={{ display: "flex" }}>
+      {/* Navbar */}
+      <AdminNavbar
+ open={open}
+        drawerWidth={drawerWidth}
+      
+        // right={
+        //   <Button variant="outlined" size="small" onClick={toggleLang}>
+        //     {i18n.language === "ar" ? "English" : "العربية"}
+        //   </Button>
+        // }
+      />
+
+      <AdminSidebar
+        open={open}
+        onToggle={() => setOpen((v) => !v)} 
+      />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar />
         <Outlet />
       </Box>
     </Box>

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type { RegisterTypes } from "../../../Services/INTERFACES";
 import { axiosInstance, USERS_URLS } from "../../../Services/END_POINTS";
@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import FilledInput from "@mui/material/FilledInput";
 import {
+  CONFIRM_PASSWORD_VALIDATION,
   EMAIL_VALIDATION,
   PASSWORD_VALIDATION,
   PHONE_VALIDATION,
@@ -40,6 +41,9 @@ export default function ChangePassword() {
   const {
     register,
     handleSubmit,
+    control,
+    watch,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<RegisterTypes>();
 
@@ -72,24 +76,27 @@ export default function ChangePassword() {
 
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // let imgRef = useRef();
+
+  useEffect(() => {
+    if (watch("confirmPassword")) trigger("confirmPassword");
+  }, [watch("password")]);
 
   return (
     <Container>
       <title>Staycation | Sign up</title>
       <Box>
         <Typography variant="h4" component="h1" sx={{ fontWeight: "600" }}>
-          {t('register.signup')}
+          {t("register.signup")}
         </Typography>
         <Typography variant="body1" component="p" sx={{ marginY: "20px" }}>
-          {t('register.alreadyAccount')} <br />
-          {t('register.youCanSignin')} {""}
+          {t("register.alreadyAccount")} <br />
+          {t("register.youCanSignin")} {""}
           <Link
             href="/login"
             underline="none"
             sx={{ color: "#EB5148", fontWeight: "bold" }}
           >
-            {t('register.loginHere')}
+            {t("register.loginHere")}
           </Link>
         </Typography>
       </Box>
@@ -108,7 +115,7 @@ export default function ChangePassword() {
             }}
           >
             <Typography color="#152C5B" sx={{ marginTop: "20px" }}>
-              {t('register.uploadImg')}
+              {t("register.uploadImg")}
             </Typography>
             <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
               {!preview ? (
@@ -159,11 +166,11 @@ export default function ChangePassword() {
 
         {/* Username */}
         <FormControl fullWidth>
-          <Typography color="#152C5B">{t('Username')}</Typography>
+          <Typography color="#152C5B">{t("Username")}</Typography>
           <FilledInput
             {...register("userName", REQUIRED_VALIDATION("Username"))}
             id="userName"
-            placeholder={t('Type_Here')}
+            placeholder={t("Type_Here")}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -189,11 +196,11 @@ export default function ChangePassword() {
           <Grid size={{ xs: 12, md: 6 }}>
             {/* Phone number */}
             <FormControl fullWidth>
-              <Typography color="#152C5B">{t('Phone_Number')}</Typography>
+              <Typography color="#152C5B">{t("Phone_Number")}</Typography>
               <FilledInput
                 {...register("phoneNumber", PHONE_VALIDATION)}
                 id="phoneNumber"
-                placeholder={t('Type_Here')}
+                placeholder={t("Type_Here")}
                 disableUnderline
                 sx={{
                   bgcolor: "#F5F6F8",
@@ -222,7 +229,7 @@ export default function ChangePassword() {
               <FilledInput
                 {...register("country", REQUIRED_VALIDATION("Country"))}
                 id="country"
-                placeholder={t('Type_Here')}
+                placeholder={t("Type_Here")}
                 disableUnderline
                 sx={{
                   bgcolor: "#F5F6F8",
@@ -248,12 +255,12 @@ export default function ChangePassword() {
         {/* Email */}
         <FormControl fullWidth>
           <Typography color="#152C5B" sx={{ marginTop: "20px" }}>
-            {t('Email_Address')}
+            {t("Email_Address")}
           </Typography>
           <FilledInput
             {...register("email", EMAIL_VALIDATION)}
             id="email"
-            placeholder={t('Type_Here')}
+            placeholder={t("Type_Here")}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -277,36 +284,46 @@ export default function ChangePassword() {
         {/* Role */}
         <FormControl fullWidth variant="outlined">
           <Typography color="#152C5B" sx={{ marginTop: "20px" }}>
-            {t('Role')}
+            {t("Role")}
           </Typography>
-          <Select
-            {...register("role", REQUIRED_VALIDATION("Role"))}
-            defaultValue=""
-            displayEmpty
-            renderValue={(selected) => {
-              if (selected === "") {
-                return (
-                  <span style={{ color: "#b4b4b4ff" }}>Select a Role...</span>
-                );
-              }
-              return selected;
-            }}
-            id="role"
-            sx={{
-              bgcolor: "#F5F6F8",
-              borderRadius: "4px",
-              marginTop: "10px",
-              "& .MuiInputBase-input": {
-                py: "10px",
-              },
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: "none", //removes the border
-              },
-            }}
-          >
-            <MenuItem value={"admin"}>Admin</MenuItem>
-            <MenuItem value={"user"}>User</MenuItem>
-          </Select>
+          <Controller
+            name="role"
+            control={control} 
+            rules={REQUIRED_VALIDATION("Role")} 
+            render={({field}) => (
+              <Select
+              {...field}
+                // {...register("role", REQUIRED_VALIDATION("Role"))}
+                defaultValue=""
+                displayEmpty
+                renderValue={(selected) => {
+                  if (selected === "") {
+                    return (
+                      <span style={{ color: "#b4b4b4ff" }}>
+                        Select a Role...
+                      </span>
+                    );
+                  }
+                  return selected.charAt(0).toUpperCase() + selected.slice(1);;
+                }}
+                id="role"
+                sx={{
+                  bgcolor: "#F5F6F8",
+                  borderRadius: "4px",
+                  marginTop: "10px",
+                  "& .MuiInputBase-input": {
+                    py: "10px",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    border: "none", //removes the border
+                  },
+                }}
+              >
+                <MenuItem value={"admin"}>Admin</MenuItem>
+                <MenuItem value={"user"}>User</MenuItem>
+              </Select>
+            )}
+          />
 
           {errors.role && (
             <Typography sx={{ color: "red" }}>
@@ -318,7 +335,7 @@ export default function ChangePassword() {
         {/* Password */}
         <FormControl fullWidth>
           <Typography color="#152C5B" sx={{ marginTop: "20px" }}>
-            {t('Password')}
+            {t("Password")}
           </Typography>
           <FilledInput
             {...register("password", PASSWORD_VALIDATION)}
@@ -339,7 +356,7 @@ export default function ChangePassword() {
               </InputAdornment>
             }
             id="password"
-            placeholder={t('Type_Here')}
+            placeholder={t("Type_Here")}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -363,10 +380,10 @@ export default function ChangePassword() {
         {/* Confirm Password */}
         <FormControl fullWidth>
           <Typography color="#152C5B" sx={{ marginTop: "20px" }}>
-            {t('Confirm_Password')}
+            {t("Confirm_Password")}
           </Typography>
           <FilledInput
-            {...register("confirmPassword", PASSWORD_VALIDATION)}
+            {...register("confirmPassword", CONFIRM_PASSWORD_VALIDATION(watch("password")))}
             type={showConfirmPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">
@@ -386,7 +403,7 @@ export default function ChangePassword() {
               </InputAdornment>
             }
             id="confirmPassword"
-            placeholder={t('Type_Here')}
+            placeholder={t("Type_Here")}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -421,7 +438,7 @@ export default function ChangePassword() {
             fontSize: "17px",
           }}
         >
-          {t('register.signup')}
+          {t("register.signup")}
           <img
             hidden={!isSubmitting}
             src={loading}

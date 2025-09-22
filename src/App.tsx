@@ -20,6 +20,8 @@ import BookingList from "./Modules/AdminModule/Booking/BookingList";
 import { AuthContextProvider } from "./Contexts/AuthContext/AuthContext";
 import FacilitiesView from "./Modules/AdminModule/Facilities/FacilitiesView";
 import ADSList from "./Modules/AdminModule/ADS/ADSList";
+import UsersList from "./Modules/AdminModule/Users/UsersList";
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -53,15 +55,16 @@ function App() {
       element: <AdminLayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <AdminDashboard /> },
-        { path: "rooms", element: <RoomsList /> },
-        { path: "add-room", element: <RoomData /> },
-        { path: "edit-room/:id", element: <RoomData /> },
-        { path: "view-room/:id", element: <RoomData /> },
+        {index: true, element: <AdminDashboard/>},
+        {path: 'rooms', element: <RoomsList/>},
+        {path: 'add-room', element: <RoomData/>},
+        {path: 'edit-room/:id', element: <RoomData/>},
+        {path: 'view-room/:id', element: <RoomData/>},
         { path: "facilities", element: <FacilitiesView /> },
-        { path: "ads", element: <ADSList /> },
-        { path: "booking-list", element: <BookingList /> },
-      ],
+        {path: 'ads', element: <ADSList/>},
+        {path: 'booking-list', element: <BookingList/>},
+        {path: 'users-list', element: <UsersList/>},
+      ]
     },
   ]);
   return (

@@ -47,6 +47,13 @@
     "edit": "Edit",
     "delete": "Delete"
   },
+    "Users_table_head": {
+    "userName": "UserName",
+    "image": "Image",
+    "email": "Email",
+    "role": "Role",
+    "phoneNumber": "PhoneNumber"
+  },
    "SideBar": {
     "Home": "Home",
     "Users": "Users"

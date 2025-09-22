@@ -1,3 +1,4 @@
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -74,6 +75,7 @@ export default function UserList() {
   }, []);
 
   return (
+
     <>
       <TableContainer
         sx={{
@@ -220,6 +222,6 @@ export default function UserList() {
         </Table>
       </TableContainer>
     </>
+
   );
 }
-

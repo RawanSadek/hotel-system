@@ -42,7 +42,7 @@ export default function RoomsList() {
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
-  const getRooms = async (pageNumber:number) => {
+  const getRooms = async (pageNumber: number) => {
     try {
       setIsLoading(true);
       const response = await axiosInstance(ROOMS_URLS.GET_ALL, {
@@ -54,7 +54,6 @@ export default function RoomsList() {
       setrooms(response?.data?.data?.rooms);
       // setTotalRooms(response.data.data.totalCount);
       setTotalPages(Math.ceil(response.data.data.totalCount / 10));
-      console.log(response.data);
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -250,7 +249,7 @@ export default function RoomsList() {
                       count={totalPages}
                       onChange={(event, value) => {
                         setActivePage(value);
-                        getRooms(value); 
+                        getRooms(value);
                       }}
                       renderItem={(item) => (
                         <PaginationItem

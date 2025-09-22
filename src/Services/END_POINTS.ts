@@ -47,7 +47,7 @@ export const ROOMS_URLS = {
 export const BOOKING_URLS = {
   GET_ALL: `${adminPortalBaseURL}/booking`,
   GET_BOOking_DETAILS: (id: string) => `${adminPortalBaseURL}/booking/${id}`,
-  DELETE_BOOKING: (id: string) => `${adminPortalBaseURL}/booking/${id}`
+  DELETE_BOOKING: (id: string) => `${adminPortalBaseURL}/booking/${id}`,
   UPDATE_ROOMS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
   GET_ROOM_DETAILS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
   DELETE_ROOM: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,

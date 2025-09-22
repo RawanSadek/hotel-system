@@ -31,7 +31,6 @@ export const USERS_URLS = {
   FACEBOOK_AUTH: `${userPortalBaseURL}/users/auth/facebook`,
 };
 
-
 // ADMIN PORTAL
 // ------------
 
@@ -39,11 +38,19 @@ export const USERS_URLS = {
 export const ROOMS_URLS = {
   GET_ALL: `${adminPortalBaseURL}/rooms`,
   CREATE_ROOM: `${adminPortalBaseURL}/rooms`,
-  UPDATE_ROOMS: (id:number) => `${adminPortalBaseURL}/rooms/${id}`,
+  UPDATE_ROOMS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
   GET_ROOM_DETAILS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
-  DELETE_ROOM: (id: number) => `${adminPortalBaseURL}/rooms/${id}`
+  DELETE_ROOM: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
 };
 
+// Facilities URLs
+export const FACILITIES_URLS = {
+  GET_ALL: `${adminPortalBaseURL}/room-facilities`,
+  CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
+  UPDATE_FACILITY: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+  GET_FACILITY_DETAILS: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+  DELETE_FACILITY: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+};
 
 // USER PORTAL
 // -----------

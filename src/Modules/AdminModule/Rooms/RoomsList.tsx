@@ -24,6 +24,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import RoomsHeader from "./RoomsHeader";
 
 export default function RoomsList() {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ export default function RoomsList() {
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
-  const getRooms = async (pageNumber:number) => {
+  const getRooms = async (pageNumber: number) => {
     try {
       setIsLoading(true);
       const response = await axiosInstance(ROOMS_URLS.GET_ALL, {
@@ -77,6 +78,8 @@ export default function RoomsList() {
 
   return (
     <>
+      <RoomsHeader />
+
       <TableContainer
         sx={{
           borderTopLeftRadius: "8px",
@@ -147,6 +150,12 @@ export default function RoomsList() {
                       height="60px"
                       borderRadius="10%"
                       overflow={"hidden"}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
                     >
                       <img
                         src={room.images[0] ? room.images[0] : noImg}
@@ -194,6 +203,7 @@ export default function RoomsList() {
                       <MoreHorizIcon />
                     </Button>
                     <Menu
+                      className="actionMenu"
                       id="basic-menu"
                       anchorEl={anchorEl}
                       open={open}
@@ -212,7 +222,7 @@ export default function RoomsList() {
                             fontSize: "22px",
                             marginX: "10px",
                           }}
-                        />{" "}
+                        />
                         {t("list_actions.view")}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
@@ -222,7 +232,7 @@ export default function RoomsList() {
                             fontSize: "22px",
                             marginX: "10px",
                           }}
-                        />{" "}
+                        />
                         {t("list_actions.edit")}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
@@ -232,7 +242,7 @@ export default function RoomsList() {
                             fontSize: "22px",
                             marginX: "10px",
                           }}
-                        />{" "}
+                        />
                         {t("list_actions.delete")}
                       </MenuItem>
                     </Menu>
@@ -250,7 +260,7 @@ export default function RoomsList() {
                       count={totalPages}
                       onChange={(event, value) => {
                         setActivePage(value);
-                        getRooms(value); 
+                        getRooms(value);
                       }}
                       renderItem={(item) => (
                         <PaginationItem

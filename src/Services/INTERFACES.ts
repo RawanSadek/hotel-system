@@ -23,8 +23,14 @@ export interface RegisterTypes {
   confirmPassword: string;
 }
 
+export interface LoginDataTypes {
+  userName: string;
+  _id: string;
+  role: string;
+}
+
 export interface AuthContextType {
-  loginData: JwtPayload | null;
+  loginData: LoginDataTypes | null;
   getLoginData: () => void;
   logout: () => void;
 }
@@ -48,5 +54,12 @@ export interface RoomsListInterface {
   price: number;
   capacity: number;
   discount: number;
-  images: [string]
+  images: [string];
+  imgs: [string]
+  facilities: [object]
+}
+
+export interface FacilitiesInterface {
+  _id: string;
+  name: string;
 }

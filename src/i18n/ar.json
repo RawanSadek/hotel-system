@@ -53,7 +53,22 @@
       "createdAt": "تم الإنشاء في"
     }
   },
-
+  "ADS": {
+    "add_new_ADS": "إضافة إعلان جديد",
+    "ADS_table_details": "تفاصيل جدول الإعلانات",
+    "check_all_details": "يمكنك التحقق من جميع التفاصيل",
+    "ADS_table_head": {
+      "room_number": "رقم الغرفة",
+      "price": "السعر",
+      "discount": "التخفيض",
+      "capacity": "السعة",
+      "status": "الحالة",
+      "date": "التاريخ",
+      "image": "الصورة",
+      "createdBy": "تم الإنشاء بواسطة",
+      "createdAt": "تم الإنشاء في"
+    }
+  },
   "list_actions": {
     "view": "عرض",
     "edit": "تعديل",

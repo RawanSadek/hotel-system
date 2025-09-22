@@ -53,6 +53,21 @@
       "createdAt": "Created At"
     }
   },
+  "ADS": {
+    "add_new_ADS": "Add New ADS",
+    "ADS_table_details": "ADS Table Details",
+    "check_all_details": "You can check all details",
+    "ADS_table_head": {
+      "room_number": "Room Number",
+      "price": "Price",
+      "discount": "Discount",
+      "capacity": "Capacity",
+      "status": "Status",
+      "date": "Date",
+      "updatedAt": "Updated At",
+      "createdAt": "Created At"
+    }
+  },
 
   "list_actions": {
     "view": "View",

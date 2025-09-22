@@ -48,43 +48,5 @@ export interface RoomsListInterface {
   price: number;
   capacity: number;
   discount: number;
-  images: [string];
-}
-export interface IFacilities {
-  _id: string;
-  name: string;
-  createdAt: string;
-  createdBy: {
-    userName: string;
-  };
-}
-export interface IADSForm {
-  name: string;
-  discount: number;
-  isActive: string;
-  room: string;
-}
-export interface AddsRoom {
-  _id: string;
-  roomNumber: string;
-}
-export interface IselectedAdd {
-  _id: string;
-  discount: number;
-  isActive: boolean;
-  roomId: string;
-  room: RoomsListInterface;
-  createdAt: string;
-}
-export interface IADS {
-  _id: string;
-  price: number;
-  capacity: number;
-  discount: number;
-  isActive: boolean;
-  createdAt: string;
-  room: RoomsListInterface;
-  createdBy: {
-    userName: string;
-  };
+  images: [string]
 }

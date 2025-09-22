@@ -40,7 +40,6 @@ export default function Login() {
   const onSubmit = async (data: loginDataTypes) => {
     try {
       const response = await axiosInstance.post(USERS_URLS.LOGIN, data);
-      // console.log(response);
       localStorage.setItem(
         "token",
         response.data.data.token.replace(/^Bearer\s+/, "")
@@ -71,14 +70,14 @@ export default function Login() {
         </Typography>
         <Typography variant="body1" component="p" sx={{ marginY: "30px" }}>
           {t("login.noAccount")} <br />
+          {t("login.registerPrompt")}
+          <Link
+            href="/register"
+            underline="none"
+            sx={{ color: "#152C5B", fontWeight: "bold" }}
+          >
             {t("login.registerPrompt")}
-            <Link
-              href="/register"
-              underline="none"
-              sx={{ color: "#152C5B", fontWeight: "bold" }}
-            >
-              {t("login.registerPrompt")}
-            </Link>
+          </Link>
         </Typography>
       </Box>
       <Box onSubmit={handleSubmit(onSubmit)} component="form">
@@ -88,7 +87,7 @@ export default function Login() {
           <FilledInput
             {...register("email", EMAIL_VALIDATION)}
             id="email"
-            placeholder={t('Type_Here')}
+            placeholder={t("Type_Here")}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",
@@ -132,7 +131,7 @@ export default function Login() {
               </InputAdornment>
             }
             id="password"
-            placeholder={t('Type_Here')}
+            placeholder={t("Type_Here")}
             disableUnderline
             sx={{
               bgcolor: "#F5F6F8",

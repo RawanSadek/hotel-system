@@ -72,6 +72,10 @@ export const ADS_URLS = {
   GET_AD_DETAILS: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
   DELETE_AD: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
 };
+// Chart URLs
+export const ADMINChart = {
+  getChart: `${adminPortalBaseURL}/dashboard`,
+};
 
 // USER PORTAL
 // -----------

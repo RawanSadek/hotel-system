@@ -50,14 +50,3 @@ export interface RoomsListInterface {
   discount: number;
   images: [string]
 }
-export interface UserListInterface {
-  _id: string;
-  userName: string;
-  profileImage: string
-  email: string;
-  role: string;
-  phoneNumber: number;
-  country:string;
-
-}
-

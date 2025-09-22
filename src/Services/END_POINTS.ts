@@ -48,6 +48,14 @@ export const USERDashBoard_URLS = {
   GET_USER_DETAILS: (id: number) => `${adminPortalBaseURL}/users/${id}`,
 };
 
+// Facilities URLs
+export const FACILITIES_URLS = {
+  GET_ALL: `${adminPortalBaseURL}/room-facilities`,
+  CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
+  UPDATE_FACILITY: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+  GET_FACILITY_DETAILS: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+  DELETE_FACILITY: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+};
 
 // Booking URLs
 export const BOOKING_URLS = {

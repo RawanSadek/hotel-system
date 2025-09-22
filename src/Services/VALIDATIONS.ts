@@ -1,3 +1,4 @@
+
 export const EMAIL_VALIDATION = {
     required: 'Email is required!',
     pattern: {

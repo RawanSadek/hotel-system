@@ -42,10 +42,56 @@
     "discount": "Discount",
     "capacity": "Capacity"
   },
+  "Bookings_table_head": {
+    "room_number": "Room Number",
+    "price": "Price",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "user": "User"
+  },
+  "facilities": {
+    "add_new_facility": "Add New Facility",
+    "facilities_table_details": "Facilities Table Details",
+    "check_all_details": "You can check all details",
+    "facilities_table_head": {
+      "id": "ID",
+      "name": "Name",
+      "createdBy": "Created By",
+      "createdAt": "Created At"
+    }
+  },
+  "ADS": {
+    "add_new_ADS": "Add New ADS",
+    "ADS_table_details": "ADS Table Details",
+    "check_all_details": "You can check all details",
+    "ADS_table_head": {
+      "room_number": "Room Number",
+      "price": "Price",
+      "discount": "Discount",
+      "capacity": "Capacity",
+      "status": "Status",
+      "date": "Date",
+      "updatedAt": "Updated At",
+      "createdAt": "Created At"
+    }
+  },
+
   "list_actions": {
     "view": "View",
     "edit": "Edit",
     "delete": "Delete"
+  },
+
+    "Users_table_head": {
+    "userName": "UserName",
+    "image": "Image",
+    "email": "Email",
+    "role": "Role",
+    "phoneNumber": "PhoneNumber"
+  },
+   "SideBar": {
+    "Home": "Home",
+    "Users": "Users"
   },
   "forgot_title": "Forgot password",
   "forgot_subtitle": "If you already have an account register",

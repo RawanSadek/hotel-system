@@ -48,5 +48,5 @@ export interface RoomsListInterface {
   price: number;
   capacity: number;
   discount: number;
-  images: [string]
+  images: [string];
 }

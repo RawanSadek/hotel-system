@@ -32,7 +32,7 @@ export default function DashBoard() {
     useState<FacilitiesList>();
   const [getAdslist, setAdsList] = useState<AdsList>();
   const [getBookinglist, setBookingList] = useState();
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   const getRooms = async () => {
     const response = await axiosInstance.get(ROOMS_URLS.GET_ALL);

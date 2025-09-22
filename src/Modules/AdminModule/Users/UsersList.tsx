@@ -1,8 +1,9 @@
-import React from 'react'
+import UsersTable from "./components/UsersTable";
 
 export default function UsersList() {
   return (
-    <div>UsersList</div>
-  )
+    <div>
+      <UsersTable />
+    </div>
+  );
 }
-

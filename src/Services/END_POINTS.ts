@@ -66,18 +66,6 @@ export const BOOKING_URLS = {
   GET_ROOM_DETAILS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
   DELETE_ROOM: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
 };
-// Facilities URLs
-export const FACILITIES_URLS = {
-  GET_ALL: (page: number) =>
-    `${adminPortalBaseURL}/room-facilities?pageNumber=${page}`,
-  CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
-  UPDATE_FACILITY: (id: string) =>
-    `${adminPortalBaseURL}/room-facilities/${id}`,
-  GET_FACILITY_DETAILS: (id: string) =>
-    `${adminPortalBaseURL}/room-facilities/${id}`,
-  DELETE_FACILITY: (id: string) =>
-    `${adminPortalBaseURL}/room-facilities/${id}`,
-};
 // ADS URLs
 export const ADS_URLS = {
   GET_ALL: (page: number) => `${adminPortalBaseURL}/ads?pageNumber=${page}`,

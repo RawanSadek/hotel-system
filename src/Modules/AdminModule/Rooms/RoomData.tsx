@@ -58,6 +58,7 @@ export default function RoomData({ isEdit }: RoomDataProps) {
 
     // console.log(payload);
     try {
+      
       if (isEdit) {
         const response = await axiosInstance.put(
           `${ROOMS_URLS.UPDATE_ROOMS}/${id}`,
@@ -65,8 +66,8 @@ export default function RoomData({ isEdit }: RoomDataProps) {
         );
         toast.success(response.data.message || "Room updated successfully");
       } else {
-        await axiosInstance.post(ROOMS_URLS.CREATE_ROOM, formData);
-        toast.success("Facility added successfully");
+        const response = await axiosInstance.post(ROOMS_URLS.CREATE_ROOM, formData);
+        toast.success(response.data.message || "Room added successfully");
       }
       reset();
       navigate('/dashboard/rooms')

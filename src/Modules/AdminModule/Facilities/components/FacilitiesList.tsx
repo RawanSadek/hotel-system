@@ -55,9 +55,7 @@ export default function FacilitiesList() {
     setAnchorEl(event.currentTarget);
     setSelectedFacility(id);
   };
-  const handleOpenPopUp = () => {
-    setEditAddPopUpOpen(true);
-  };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     setSelectedFacility(null);
@@ -68,7 +66,7 @@ export default function FacilitiesList() {
         FACILITIES_URLS.DELETE_FACILITY(`${selectedFacility}`)
       );
       toast.success(t("Facility deleted successfully"));
-      getFacilities({ page: currentPage });
+      getFacilities();
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || t("Something went wrong"));
@@ -76,10 +74,10 @@ export default function FacilitiesList() {
     setDeleteDialogOpen(false);
     handleMenuClose();
   };
-  const getFacilities = async ({ page }: { page: number }) => {
+  const getFacilities = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance(FACILITIES_URLS.GET_ALL(page));
+      const response = await axiosInstance(FACILITIES_URLS.GET_ALL);
       setFacilities(response?.data?.data?.facilities);
       setTotalPages(Math.ceil(response?.data?.data?.totalCount / 10));
     } catch (err) {
@@ -90,7 +88,7 @@ export default function FacilitiesList() {
   };
 
   useEffect(() => {
-    getFacilities({ page: currentPage });
+    getFacilities();
   }, [currentPage]);
 
   return (
@@ -190,7 +188,7 @@ export default function FacilitiesList() {
                     page={currentPage}
                     onChange={(_, newPage) => {
                       setCurrentPage(newPage);
-                      getFacilities({ page: newPage });
+                      getFacilities();
                     }}
                     renderItem={(item) => (
                       <PaginationItem
@@ -236,7 +234,7 @@ export default function FacilitiesList() {
         open={editAddPopUpOpen}
         handleClose={() => setEditAddPopUpOpen(false)}
         isEdit={Boolean(selectedFacility)}
-        refetchData={() => getFacilities({ page: currentPage })}
+        refetchData={getFacilities}
         facilityData={selectedFacility}
       />
       {/* Delete Confirmation Dialog */}

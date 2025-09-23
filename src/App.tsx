@@ -57,9 +57,9 @@ function App() {
       children: [
         {index: true, element: <AdminDashboard/>},
         {path: 'rooms', element: <RoomsList/>},
-        {path: 'add-room', element: <RoomData isEdit={false}/>},
-        {path: 'edit-room/:id', element: <RoomData isEdit={true}/>},
-        {path: 'view-room/:id', element: <RoomData isEdit={false}/>},
+        {path: 'add-room', element: <RoomData/>},
+        {path: 'edit-room/:id', element: <RoomData/>},
+        {path: 'view-room/:id', element: <RoomData/>},
         { path: "facilities", element: <FacilitiesView /> },
         {path: 'ads', element: <ADSList/>},
         {path: 'booking-list', element: <BookingList/>},

@@ -17,7 +17,7 @@ import {
   FACILITIES_URLS,
   ROOMS_URLS,
 } from "../../../Services/END_POINTS";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import { useEffect, useState } from "react";
@@ -26,12 +26,9 @@ import type {
   FacilitiesInterface,
   RoomsListInterface,
 } from "../../../Services/INTERFACE";
+import loading from "../../../Images/loading.gif";
 
-interface RoomDataProps {
-  isEdit: boolean;
-}
-
-export default function RoomData({ isEdit }: RoomDataProps) {
+export default function RoomData() {
   // const { t } = useTranslation();
   const {
     register,
@@ -41,6 +38,10 @@ export default function RoomData({ isEdit }: RoomDataProps) {
   } = useForm<RoomsListInterface>();
 
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { pathname } = useLocation();
+  // console.log(pathname.includes('view'));
 
   const { id } = useParams();
 
@@ -60,13 +61,17 @@ export default function RoomData({ isEdit }: RoomDataProps) {
     });
 
     try {
-      if (isEdit) {
+      if (pathname.includes("edit")) {
+
         const response = await axiosInstance.put(
-          `${ROOMS_URLS.UPDATE_ROOMS}/${id}`,
+          ROOMS_URLS.UPDATE_ROOMS(id!),
           formData
         );
         toast.success(response.data.message || "Room updated successfully");
-      } else {
+      }
+
+      if (pathname.includes("add")) {
+
         const response = await axiosInstance.post(
           ROOMS_URLS.CREATE_ROOM,
           formData
@@ -98,9 +103,37 @@ export default function RoomData({ isEdit }: RoomDataProps) {
     }
   };
 
+  const [roomDetails, setRoomDetails] = useState<RoomsListInterface | null>(
+    null
+  );
+  const getRoomDetails = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance(ROOMS_URLS.GET_ROOM_DETAILS(id!));
+      setRoomDetails(response.data.data.room);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     getFacilities();
+    if (!pathname.includes("add")) getRoomDetails();
   }, []);
+
+  useEffect(() => {
+    if (roomDetails && !pathname.includes("add")) {
+      setSelectedFacilities(roomDetails.facilities?.map((f) => f._id) || []);
+    }
+  }, [roomDetails, pathname]);
+
+  useEffect(() => {
+    if (roomDetails) {
+      reset(roomDetails);
+    }
+  }, [roomDetails, reset]);
 
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
 
@@ -115,7 +148,7 @@ export default function RoomData({ isEdit }: RoomDataProps) {
     },
   };
 
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string[] | []>([]);
   const [selectedFile, setSelectedFile] = useState<File[]>([]);
 
   return (
@@ -128,104 +161,25 @@ export default function RoomData({ isEdit }: RoomDataProps) {
           marginX: "auto",
         }}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Room Number */}
-          <TextField
-            type="text"
-            variant="outlined"
-            sx={{
-              marginY: "10px",
-              bgcolor: "#F7F7F7",
-              borderRadius: "15px",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  border: "none",
-                },
-              },
-            }}
-            {...register("roomNumber", {
-              required: "Room number is required",
-            })}
-            label="Room Number"
-            fullWidth
-            error={!!errors.roomNumber}
-            helperText={errors.roomNumber?.message}
-          />
-
-          {/* Price - Capacity */}
-          <Box
-            sx={{ marginY: "10px" }}
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignContent={"center"}
-            gap={3}
-          >
-            {/* Price */}
-            <TextField
-              type="number"
-              variant="outlined"
-              sx={{
-                marginY: "10px",
-                bgcolor: "#F7F7F7",
-                borderRadius: "15px",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    border: "none",
-                  },
-                },
-              }}
-              {...register("price", {
-                required: "Price is required",
-                validate: (value) =>
-                  !isNaN(value) && value > 0
-                    ? true
-                    : "Price must be a positive number",
-              })}
-              label="Price"
-              fullWidth
-              error={!!errors.price}
-              helperText={errors.price?.message}
-            />
-
-            {/* Capacity */}
-            <TextField
-              type="number"
-              variant="outlined"
-              sx={{
-                marginY: "10px",
-                bgcolor: "#F7F7F7",
-                borderRadius: "15px",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    border: "none",
-                  },
-                },
-              }}
-              {...register("capacity", {
-                required: "Capacity is required",
-                validate: (value) =>
-                  !isNaN(value) && value > 0
-                    ? true
-                    : "Capacity must be a positive number",
-              })}
-              label="Capacity"
-              fullWidth
-              error={!!errors.capacity}
-              helperText={errors.capacity?.message}
-            />
+        {isLoading && (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <img
+              src={loading}
+              alt="loading"
+              style={{ width: "5%", textAlign: "center" }}
+            ></img>
           </Box>
+        )}
 
-          {/* Discount - Facilities */}
-          <Box
-            sx={{ marginY: "10px" }}
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignContent={"center"}
-            gap={3}
-          >
-            {/* Discount */}
+        {!isLoading && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Room Number */}
             <TextField
-              type="number"
+              disabled={pathname.includes("view")}
+              defaultValue={
+                pathname.includes("add") ? "" : roomDetails?.roomNumber
+              }
+              type="text"
               variant="outlined"
               sx={{
                 marginY: "10px",
@@ -237,132 +191,317 @@ export default function RoomData({ isEdit }: RoomDataProps) {
                   },
                 },
               }}
-              {...register("discount", {
-                required: "Discount is required",
-                validate: (value) =>
-                  !isNaN(value) && value > 0
-                    ? true
-                    : "Discount must be a positive number",
+              {...register("roomNumber", {
+                required: "Room number is required",
               })}
-              label="Discount"
+              label={pathname.includes("add") ? "Room Number" : ""}
               fullWidth
-              error={!!errors.discount}
-              helperText={errors.discount?.message}
+              error={!!errors.roomNumber}
+              helperText={errors.roomNumber?.message}
             />
 
-            {/* Facilities */}
-            <FormControl
-              fullWidth
-              sx={{
-                marginY: "10px",
-                bgcolor: "#F7F7F7",
-                borderRadius: "15px",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    border: "none",
-                  },
-                },
-              }}
-            >
-              <InputLabel id="demo-multiple-chip-label">Facilities</InputLabel>
-              <Select<string[]>
-                labelId="demo-multiple-chip-label"
-                id="demo-multiple-chip"
-                multiple
-                value={selectedFacilities}
-                onChange={(
-                  event: SelectChangeEvent<typeof selectedFacilities>
-                ) => {
-                  const {
-                    target: { value },
-                  } = event;
-                  setSelectedFacilities(
-                    typeof value === "string" ? value.split(",") : value
-                  );
-                }}
-                input={
-                  <OutlinedInput id="select-multiple-chip" label="Facilities" />
-                }
-                renderValue={(selected) => (
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                    {selected.map((id) => {
-                      const facility = facilities.find((f) => f._id === id);
-                      return <Chip key={id} label={facility?.name || id} />;
-                    })}
-                  </Box>
-                )}
-                MenuProps={MenuProps}
-              >
-                {facilities.map((facility) => (
-                  <MenuItem key={facility._id} value={facility._id}>
-                    {facility.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-
-          {/* Images */}
-          <FormControl fullWidth sx={{ marginTop: "30px" }}>
+            {/* Price - Capacity */}
             <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
+              sx={{ marginY: "10px" }}
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignContent={"center"}
+              gap={3}
             >
-              <label htmlFor="imgs" style={{ cursor: "pointer" }}>
-                {!preview ? (
-                  <UploadIcon
-                    color="primary"
-                    sx={{ marginTop: "10px", cursor: "pointer" }}
-                  />
-                ) : (
-                  // Preview
-                  <Box mt={2}>
+              {/* Price */}
+              <TextField
+                disabled={pathname.includes("view")}
+                defaultValue={
+                  pathname.includes("add") ? "" : roomDetails?.price
+                }
+                type="number"
+                variant="outlined"
+                sx={{
+                  marginY: "10px",
+                  bgcolor: "#F7F7F7",
+                  borderRadius: "15px",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                {...register("price", {
+                  required: "Price is required",
+                  validate: (value) =>
+                    !isNaN(value) && value > 0
+                      ? true
+                      : "Price must be a positive number",
+                })}
+                label={pathname.includes("add") ? "Price" : ""}
+                fullWidth
+                error={!!errors.price}
+                helperText={errors.price?.message}
+              />
+
+              {/* Capacity */}
+              <TextField
+                disabled={pathname.includes("view")}
+                defaultValue={
+                  pathname.includes("add") ? "" : roomDetails?.capacity
+                }
+                type="number"
+                variant="outlined"
+                sx={{
+                  marginY: "10px",
+                  bgcolor: "#F7F7F7",
+                  borderRadius: "15px",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                {...register("capacity", {
+                  required: "Capacity is required",
+                  validate: (value) =>
+                    !isNaN(value) && value > 0
+                      ? true
+                      : "Capacity must be a positive number",
+                })}
+                label={pathname.includes("add") ? "Cpacity" : ""}
+                fullWidth
+                error={!!errors.capacity}
+                helperText={errors.capacity?.message}
+              />
+            </Box>
+
+            {/* Discount - Facilities */}
+            <Box
+              sx={{ marginY: "10px" }}
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignContent={"center"}
+              gap={3}
+            >
+              {/* Discount */}
+              <TextField
+                disabled={pathname.includes("view")}
+                defaultValue={
+                  pathname.includes("add") ? "" : roomDetails?.discount
+                }
+                type="number"
+                variant="outlined"
+                sx={{
+                  marginY: "10px",
+                  bgcolor: "#F7F7F7",
+                  borderRadius: "15px",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                {...register("discount", {
+                  required: "Discount is required",
+                  validate: (value) =>
+                    !isNaN(value) && value > 0
+                      ? true
+                      : "Discount must be a positive number",
+                })}
+                label={pathname.includes("add") ? "Discount" : ""}
+                fullWidth
+                error={!!errors.discount}
+                helperText={errors.discount?.message}
+              />
+
+              {/* Facilities */}
+              <FormControl
+                fullWidth
+                sx={{
+                  marginY: "10px",
+                  bgcolor: "#F7F7F7",
+                  borderRadius: "15px",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+              >
+                <InputLabel id="demo-multiple-chip-label">
+                  {pathname.includes("add") ? "Facilities" : ""}
+                </InputLabel>
+                <Select<string[]>
+                  disabled={pathname.includes("view")}
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple
+                  value={
+                    pathname.includes("add")
+                      ? selectedFacilities // empty initially, then user adds
+                      : pathname.includes("view")
+                      ? roomDetails?.facilities?.map((f) => f._id) || [] // show only existing
+                      : selectedFacilities.length > 0
+                      ? selectedFacilities // keep user’s current selection in edit mode
+                      : roomDetails?.facilities?.map((f) => f._id) || [] // prefill from API
+                  }
+                  onChange={(event: SelectChangeEvent<string[]>) => {
+                    const {
+                      target: { value },
+                    } = event;
+                    setSelectedFacilities(
+                      typeof value === "string" ? value.split(",") : value
+                    );
+                  }}
+                  input={
+                    <OutlinedInput
+                      id="select-multiple-chip"
+                      label="Facilities"
+                    />
+                  }
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selected.map((id) => {
+                        const facility = facilities.find((f) => f._id === id);
+                        return <Chip key={id} label={facility?.name || id} />;
+                      })}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {facilities.map((facility) => (
+                    <MenuItem key={facility._id} value={facility._id}>
+                      {facility.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+
+            {/* Images */}
+            <FormControl fullWidth sx={{ marginTop: "30px" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  disabled={pathname.includes("view")}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  id="imgs"
+                  style={{ display: "none" }}
+                  {...register("imgs", {
+                    required: pathname.includes("add")
+                      ? "At least one image is required"
+                      : false,
+                  })}
+                  onChange={(e) => {
+                    const files = e.target.files
+                      ? Array.from(e.target.files)
+                      : [];
+
+                    if (files.length > 0) {
+                      // Add new files to the previously selected ones
+                      const updatedFiles = [...selectedFile, ...files];
+                      setSelectedFile(updatedFiles);
+
+                      // Generate previews for all files (old + new)
+                      const updatedPreviews = updatedFiles.map((file) =>
+                        URL.createObjectURL(file)
+                      );
+                      setPreview(updatedPreviews);
+                    }
+                  }}
+                />
+
+                {/* Previews (default + newly uploaded) */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 2,
+                    flexWrap: "wrap",
+                    marginTop: 2,
+                  }}
+                >
+                  {/* Default images from roomDetails */}
+                  {roomDetails?.images?.map((img: string, idx: number) => (
                     <img
-                      src={preview}
-                      alt="preview"
+                      key={`default-${idx}`}
+                      src={img}
+                      alt={`room-${idx}`}
                       style={{
                         width: "80px",
                         height: "80px",
-                        borderRadius: "50%",
+                        borderRadius: "10%",
+                        objectFit: "cover",
                       }}
                     />
-                  </Box>
-                )}
-              </label>
+                  ))}
 
-              <input
-                type="file"
-                accept="image/*"
-                id="imgs"
-                style={{ display: "none" }}
-                {...register("imgs", {
-                  required: "Image is required",
-                })}
-                onChange={(e) => {
-                  const files = e.target.files
-                    ? Array.from(e.target.files)
-                    : [];
-                  setSelectedFile(files);
-                  if (files.length > 0) {
-                    setPreview(URL.createObjectURL(files[0])); // just show first preview
-                  }
+                  {/* Newly uploaded previews */}
+                  {Array.isArray(preview) &&
+                    preview.map((src, idx) => (
+                      <img
+                        key={`preview-${idx}`}
+                        src={src}
+                        alt={`preview-${idx}`}
+                        style={{
+                          width: "80px",
+                          height: "80px",
+                          borderRadius: "10%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ))}
+                </Box>
+
+                <label htmlFor="imgs" style={{ cursor: "pointer" }}>
+                  {!pathname.includes("view") &&
+                    preview.length + (roomDetails?.images?.length || 0) < 5 && (
+                      <UploadIcon
+                        color="primary"
+                        sx={{ marginTop: "10px", cursor: "pointer" }}
+                      />
+                    )}
+                </label>
+
+                {errors.imgs && (
+                  <Typography sx={{ color: "red" }}>
+                    {errors.imgs.message as string}
+                  </Typography>
+                )}
+              </Box>
+            </FormControl>
+
+            <Box sx={{ mt: "50px", display: "flex", justifyContent: "end" }}>
+              <Button
+                sx={{
+                  paddingX: "40px",
+                  marginX: "30px",
+                  color: "blue",
+                  bgcolor: "white",
                 }}
-              />
-              {errors.imgs && (
-                <Typography sx={{ color: "red" }}>
-                  {errors.imgs.message as string}
-                </Typography>
+                type="button"
+                variant="contained"
+                disabled={isSubmitting}
+                onClick={() => navigate("/dashboard/rooms")}
+              >
+                Close
+              </Button>
+
+              {!pathname.includes("view") && (
+                <Button
+                  sx={{ paddingX: "40px" }}
+                  type="submit"
+                  variant="contained"
+                  disabled={isSubmitting}
+                >
+                  Save
+                </Button>
               )}
             </Box>
-          </FormControl>
-
-          <Button type="submit" variant="contained" disabled={isSubmitting}>
-            Save
-          </Button>
-        </form>
+          </form>
+        )}
       </Box>
     </>
   );

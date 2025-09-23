@@ -21,7 +21,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Button, Menu, MenuItem } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BookingData from "./BookingData";
+import type { BookingListInterface } from "../../../Services/INTERFACE";
+import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
 
 export default function BookingList() {
   const { t } = useTranslation();
@@ -73,6 +76,22 @@ export default function BookingList() {
     setAnchorEl(null);
   };
 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const handleDelete = async () => {
+    try {
+      const response = await axiosInstance.delete(
+        BOOKING_URLS.DELETE_BOOKING(`${selectedBookingId}`)
+      );
+      toast.success(response.data.message || "Booking deleted successfully");
+      getBookings(activePage);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data?.message || t("Something went wrong"));
+    }
+    setDeleteDialogOpen(false);
+    handleClose();
+  };
+
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>();
   const [popUpOpen, setPopUpOpen] = useState(false);
 
@@ -93,7 +112,7 @@ export default function BookingList() {
           marginTop: "30px",
         }}
       >
-        <Table aria-label="rooms list">
+        <Table aria-label="booking list">
           <TableHead sx={{ bgcolor: "#E2E5EB", borderRadius: "100px" }}>
             <TableRow>
               {tableCols.map((col) => (
@@ -222,6 +241,17 @@ export default function BookingList() {
                         />{" "}
                         {t("list_actions.view")}
                       </MenuItem>
+                      <MenuItem onClick={() => setDeleteDialogOpen(true)}>
+                        <DeleteOutlineIcon
+                          sx={{
+                            color: "#203FC7",
+                            fontSize: "22px",
+                            marginX: "10px",
+                            marginY: "5px",
+                          }}
+                        />
+                        {t("list_actions.delete")}
+                      </MenuItem>
                     </Menu>
                   </TableCell>
                 </TableRow>
@@ -262,6 +292,13 @@ export default function BookingList() {
         open={popUpOpen}
         handleClose={() => setPopUpOpen(false)}
         bookingId={selectedBookingId}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmation
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={handleDelete}
       />
     </>
   );

@@ -11,6 +11,23 @@ export interface changePassDataTypes {
   newPassword: string;
   confirmPassword: string;
 }
+export interface BookingListInterface {
+  _id: string;
+  roomNumber: string;
+  userId: string;
+  checkInDate: string;
+  checkOutDate: string;
+  totalPrice: number;
+  startDate: string;
+  endDate: string;
+  user: { userName: string } | null;
+  room: RoomsListInterface | null;
+}
+export interface BookingPopUpInterface {
+  open: boolean;
+  handleClose: () => void;
+  bookingId: string | null;
+}
 
 export interface RegisterTypes {
   userName: string;
@@ -41,7 +58,14 @@ export interface IResetPasswordTypes {
   password: string;
   confirmPassword: string;
 }
-
+export interface DeleteConfirmationProps {
+  onClose: () => void;
+  open: boolean;
+  handleClose: () => void;
+  onConfirm: () => void;
+  title?: string;
+  message?: string;
+}
 export interface RoomsListInterface {
   _id: string;
   roomNumber: string;
@@ -59,6 +83,12 @@ export interface RoomsListInterface {
 export interface FacilitiesInterface {
   _id: string;
   name: string;
+}
+export interface IFacilities {
+  _id: string;
+  name: string;
+  createdAt: string;
+  createdBy: { userName: string } | null;
 }
 export interface AddsRoom {
   _id: string;
@@ -81,7 +111,10 @@ export interface IADSForm {
 export interface IselectedAdd {
   _id: string;
   roomId: string;
-  discount: number;
+  room: {
+    _id: string;
+    discount: number;
+  };
   isActive: boolean;
   roomNumber: string;
   price: number;

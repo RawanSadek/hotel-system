@@ -60,9 +60,9 @@ export default function RoomData() {
       formData.append("imgs", file);
     });
 
-    // console.log(payload);
     try {
       if (pathname.includes("edit")) {
+
         const response = await axiosInstance.put(
           ROOMS_URLS.UPDATE_ROOMS(id!),
           formData
@@ -71,6 +71,7 @@ export default function RoomData() {
       }
 
       if (pathname.includes("add")) {
+
         const response = await axiosInstance.post(
           ROOMS_URLS.CREATE_ROOM,
           formData

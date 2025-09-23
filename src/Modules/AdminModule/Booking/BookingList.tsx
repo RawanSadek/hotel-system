@@ -9,6 +9,7 @@ import { axiosInstance, BOOKING_URLS } from "../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
+import type { BookingListInterface } from "../../../Services/INTERFACE";
 import Box from "@mui/material/Box";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import loading from "../../../Images/loading.gif";
@@ -52,7 +53,7 @@ export default function BookingList() {
           size: 10,
         },
       });
-      // console.log(response.data);
+
       setBookingList(response?.data?.data?.booking);
       setTotalPages(Math.ceil(response.data.data.totalCount / 10));
     } catch (err) {

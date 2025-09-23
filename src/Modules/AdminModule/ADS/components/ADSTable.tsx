@@ -9,7 +9,7 @@ import { axiosInstance, ADS_URLS } from "../../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { IADS } from "../../../../Services/INTERFACES";
+import type { IADS } from "../../../../Services/INTERFACE";
 import loading from "./../../../../Images/loading.gif";
 import TableFooter from "@mui/material/TableFooter";
 import Stack from "@mui/material/Stack";
@@ -66,7 +66,7 @@ const ADSTable = () => {
     try {
       await axiosInstance.delete(`${ADS_URLS.DELETE_AD(`${selectedAds}`)}`);
       toast.success(t("Ads deleted successfully"));
-      getADS({ page: currentPage });
+      getADS();
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || t("Something went wrong"));
@@ -74,10 +74,10 @@ const ADSTable = () => {
     setDeleteDialogOpen(false);
     handleMenuClose();
   };
-  const getADS = async ({ page }: { page: number }) => {
+  const getADS = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance(ADS_URLS.GET_ALL(page));
+      const response = await axiosInstance(ADS_URLS.GET_ALL);
       setADS(response?.data?.data?.ads);
       setTotalPages(Math.ceil(response?.data?.data?.totalCount / 10));
     } catch (err) {
@@ -88,11 +88,11 @@ const ADSTable = () => {
   };
 
   useEffect(() => {
-    getADS({ page: currentPage });
+    getADS();
   }, [currentPage]);
   return (
     <>
-      <ADSHeader getAds={getADS} />
+      <ADSHeader getADS={getADS} />
       <TableContainer
         sx={{
           borderTopLeftRadius: "8px",
@@ -205,7 +205,7 @@ const ADSTable = () => {
                     page={currentPage}
                     onChange={(_, newPage) => {
                       setCurrentPage(newPage);
-                      getADS({ page: newPage });
+                      getADS();
                     }}
                     renderItem={(item) => (
                       <PaginationItem
@@ -256,7 +256,7 @@ const ADSTable = () => {
       <EditAddPopUp
         open={editAddPopUpOpen}
         handleClose={() => setEditAddPopUpOpen(false)}
-        refetchData={() => getADS({ page: currentPage })}
+        refetchData={() => getADS()}
         ADSData={selectedAds}
       />
       {/* Delete Confirmation Dialog */}

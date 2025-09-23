@@ -52,9 +52,12 @@ export const USERDashBoard_URLS = {
 export const FACILITIES_URLS = {
   GET_ALL: `${adminPortalBaseURL}/room-facilities`,
   CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
-  UPDATE_FACILITY: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
-  GET_FACILITY_DETAILS: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
-  DELETE_FACILITY: (id: string) => `${adminPortalBaseURL}/room-facilities/${id}`,
+  UPDATE_FACILITY: (id: string) =>
+    `${adminPortalBaseURL}/room-facilities/${id}`,
+  GET_FACILITY_DETAILS: (id: string) =>
+    `${adminPortalBaseURL}/room-facilities/${id}`,
+  DELETE_FACILITY: (id: string) =>
+    `${adminPortalBaseURL}/room-facilities/${id}`,
 };
 
 // Booking URLs
@@ -68,7 +71,7 @@ export const BOOKING_URLS = {
 };
 // ADS URLs
 export const ADS_URLS = {
-  GET_ALL: (page: number) => `${adminPortalBaseURL}/ads?pageNumber=${page}`,
+  GET_ALL: `${adminPortalBaseURL}/ads`,
   CREATE_AD: `${adminPortalBaseURL}/ads`,
   UPDATE_AD: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
   GET_AD_DETAILS: (id: string) => `${adminPortalBaseURL}/ads/${id}`,

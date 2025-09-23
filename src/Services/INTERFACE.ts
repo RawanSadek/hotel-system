@@ -49,10 +49,46 @@ export interface RoomsListInterface {
   capacity: number;
   discount: number;
   images: [string];
-   imgs: [string]
+  imgs: [string];
 }
 
 export interface FacilitiesInterface {
   _id: string;
-  name:string
+  name: string;
+}
+export interface AddsRoom {
+  _id: string;
+  roomNumber: string;
+}
+export interface IADS {
+  _id?: string;
+  roomId: string;
+  discount: number;
+  isActive: boolean;
+  room?: RoomsListInterface;
+  createdAt?: string;
+  updatedAt?: string;
+}
+export interface IADSForm {
+  room: string;
+  discount: number;
+  isActive: string;
+}
+export interface IselectedAdd {
+  _id: string;
+  roomId: string;
+  discount: number;
+  isActive: boolean;
+  roomNumber: string;
+  price: number;
+  capacity: number;
+}
+export interface IADS {
+  _id?: string;
+  roomId: string;
+  discount: number;
+  isActive: boolean;
+  room?: RoomsListInterface;
+  createdAt?: string;
+  updatedAt?: string;
 }

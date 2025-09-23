@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { ADMINChart, axiosInstance } from "../../../../Services/END_POINTS";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface rooms {
   pending: number;
@@ -25,10 +25,6 @@ export default function BookingChart() {
   return (
     <>
       <Box sx={{ color: "black" }}>
-        <Typography variant="h6" sx={{ margin: 2, fontWeight: 900 }}>
-          Booking Status: Complete vs. Pending
-        </Typography>
-
         <PieChart
           series={[
             {
@@ -37,7 +33,7 @@ export default function BookingChart() {
                   id: 1,
                   value: rooms.pending,
                   label: "pending",
-                  color: "var(--dark-blue)",
+                  color: "#5368F0",
                 },
                 {
                   id: 2,

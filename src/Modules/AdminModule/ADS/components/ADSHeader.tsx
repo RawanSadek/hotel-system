@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import EditAddPopUp from "./EditAddPopUp";
 import { useState } from "react";
 interface IAdsProp {
-  getADS: React.FC<1>;
+  getADS: () => Promise<void>;
 }
 const ADSHeader = ({ getADS }: IAdsProp) => {
   const { t } = useTranslation();

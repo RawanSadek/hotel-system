@@ -25,14 +25,14 @@ import type {
   AddsRoom,
   IADSForm,
   IselectedAdd,
-} from "../../../../Services/INTERFACES";
+} from "../../../../Services/INTERFACE";
 interface EditAddPopUpProps {
   open: boolean;
   handleClose: () => void;
   isEdit?: boolean;
-  ADSData?: { _id: string; name: string } | null;
-  refetchData: React.FC<1>;
-  selectedAdd?: IselectedAdd | null | string;
+  ADSData?: IselectedAdd | undefined;
+  refetchData: () => void;
+  selectedAdd?: IselectedAdd | null;
 }
 
 export default function EditAddPopUp({
@@ -83,7 +83,7 @@ export default function EditAddPopUp({
         await axiosInstance.post(ADS_URLS.CREATE_AD, data);
         toast.success("ADS added successfully");
       }
-      refetchData(1);
+      refetchData();
       handleClose();
       reset();
     } catch (err) {

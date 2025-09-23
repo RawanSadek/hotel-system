@@ -22,7 +22,10 @@ import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
-import type { FacilitiesInterface, RoomsListInterface } from "../../../Services/INTERFACE";
+import type {
+  FacilitiesInterface,
+  RoomsListInterface,
+} from "../../../Services/INTERFACE";
 
 interface RoomDataProps {
   isEdit: boolean;
@@ -56,9 +59,7 @@ export default function RoomData({ isEdit }: RoomDataProps) {
       formData.append("imgs", file);
     });
 
-    // console.log(payload);
     try {
-      
       if (isEdit) {
         const response = await axiosInstance.put(
           `${ROOMS_URLS.UPDATE_ROOMS}/${id}`,
@@ -66,12 +67,14 @@ export default function RoomData({ isEdit }: RoomDataProps) {
         );
         toast.success(response.data.message || "Room updated successfully");
       } else {
-        const response = await axiosInstance.post(ROOMS_URLS.CREATE_ROOM, formData);
+        const response = await axiosInstance.post(
+          ROOMS_URLS.CREATE_ROOM,
+          formData
+        );
         toast.success(response.data.message || "Room added successfully");
       }
       reset();
-      navigate('/dashboard/rooms')
-
+      navigate("/dashboard/rooms");
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || "Something went wrong");

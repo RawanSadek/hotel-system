@@ -11,6 +11,23 @@ export interface changePassDataTypes {
   newPassword: string;
   confirmPassword: string;
 }
+export interface BookingListInterface {
+  _id: string;
+  roomNumber: string;
+  userId: string;
+  checkInDate: string;
+  checkOutDate: string;
+  totalPrice: number;
+  startDate: string;
+  endDate: string;
+  user: { userName: string } | null;
+  room: RoomsListInterface | null;
+}
+export interface BookingPopUpInterface {
+  open: boolean;
+  handleClose: () => void;
+  bookingId: string | null;
+}
 
 export interface RegisterTypes {
   userName: string;
@@ -41,7 +58,14 @@ export interface IResetPasswordTypes {
   password: string;
   confirmPassword: string;
 }
-
+export interface DeleteConfirmationProps {
+  onClose: () => void;
+  open: boolean;
+  handleClose: () => void;
+  onConfirm: () => void;
+  title?: string;
+  message?: string;
+}
 export interface RoomsListInterface {
   _id: string;
   roomNumber: string;

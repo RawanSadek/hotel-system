@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { IFacilities } from "../../../../Services/INTERFACES";
+import type { IFacilities } from "../../../../Services/INTERFACE";
 import loading from "./../../../../Images/loading.gif";
 import TableFooter from "@mui/material/TableFooter";
 import Stack from "@mui/material/Stack";
@@ -39,6 +39,7 @@ export default function FacilitiesList() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement | SVGSVGElement>(
     null
   );
+  console.log(anchorEl);
   const [facilities, setFacilities] = useState<IFacilities[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -239,6 +240,7 @@ export default function FacilitiesList() {
       />
       {/* Delete Confirmation Dialog */}
       <DeleteConfirmation
+        handleClose={() => setDeleteDialogOpen(false)}
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
         onConfirm={handleDelete}

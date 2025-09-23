@@ -1,4 +1,3 @@
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,11 +5,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
-import { axiosInstance, USERDashBoard_URLS } from "../../../Services/END_POINTS";
+import {
+  axiosInstance,
+  USERDashBoard_URLS,
+} from "../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { UserListInterface } from "../../../Services/INTERFACES";
+import type { UserListInterface } from "../../../Services/INTERFACE";
 import noImg from "../../../Images/noImg.png";
 import Box from "@mui/material/Box";
 import loading from "../../../Images/loading.gif";
@@ -20,9 +22,8 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {  MenuItem } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-
 
 export default function UserList() {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ export default function UserList() {
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
-  const getUsers = async (pageNumber:number) => {
+  const getUsers = async (pageNumber: number) => {
     try {
       setIsLoading(true);
       const response = await axiosInstance(USERDashBoard_URLS.GET_ALL, {
@@ -53,7 +54,6 @@ export default function UserList() {
       setUsers(response?.data?.data?.users);
       // setTotalRooms(response.data.data.totalCount);
       setTotalPages(Math.ceil(response.data.data.totalCount / 10));
-      console.log(response.data);
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -75,7 +75,6 @@ export default function UserList() {
   }, []);
 
   return (
-
     <>
       <TableContainer
         sx={{
@@ -149,7 +148,7 @@ export default function UserList() {
                       overflow={"hidden"}
                     >
                       <img
-                        src={user.profileImage? user.profileImage : noImg}
+                        src={user.profileImage ? user.profileImage : noImg}
                         alt="user image"
                         style={{ width: "100%", borderRadius: "10%" }}
                       />
@@ -167,27 +166,26 @@ export default function UserList() {
                   >
                     {user.role}
                   </TableCell>
-               <TableCell
-                    align="center"
-                    sx={{ paddingY: "10px", border: "none" }}
-                  >
-                    {user.phoneNumber}
-                  </TableCell> 
                   <TableCell
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
-                     <MenuItem onClick={handleClose}>
-                        <RemoveRedEyeIcon
-                          sx={{
-                            color: "#203FC7",
-                            fontSize: "22px",
-                            marginX: "10px",
-                          }}
-                        />{" "}
-                        {/* {t("list_actions.view")} */}
-                      </MenuItem>
-                  
+                    {user.phoneNumber}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{ paddingY: "10px", border: "none" }}
+                  >
+                    <MenuItem onClick={handleClose}>
+                      <RemoveRedEyeIcon
+                        sx={{
+                          color: "#203FC7",
+                          fontSize: "22px",
+                          marginX: "10px",
+                        }}
+                      />{" "}
+                      {/* {t("list_actions.view")} */}
+                    </MenuItem>
                   </TableCell>
                 </TableRow>
               ))}
@@ -202,7 +200,7 @@ export default function UserList() {
                       count={totalPages}
                       onChange={(event, value) => {
                         setActivePage(value);
-                        getUsers(value); 
+                        getUsers(value);
                       }}
                       renderItem={(item) => (
                         <PaginationItem
@@ -222,6 +220,5 @@ export default function UserList() {
         </Table>
       </TableContainer>
     </>
-
   );
 }

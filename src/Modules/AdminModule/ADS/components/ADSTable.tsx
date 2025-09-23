@@ -45,26 +45,28 @@ const ADSTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [selectedAds, setSelectedAds] = useState<string | null>(null);
-  console.log(selectedAds);
+  const [selectedAdsId, setSelectedAdsId] = useState<string | null>(null);
+  const selectedAds = ADS.find((ad) => ad._id === selectedAdsId);
+
   const [editAddPopUpOpen, setEditAddPopUpOpen] = useState(false);
   const handleMenuClick = (
     event: React.MouseEvent<HTMLElement | SVGSVGElement>,
     id: string
   ) => {
     setAnchorEl(event.currentTarget);
-    setSelectedAds(id);
+    setSelectedAdsId(id);
   };
   const handleOpenPopUp = () => {
     setEditAddPopUpOpen(true);
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setSelectedAds(null);
+    setSelectedAdsId(null);
   };
   const handleDelete = async () => {
+    if (!selectedAdsId) return;
     try {
-      await axiosInstance.delete(`${ADS_URLS.DELETE_AD(`${selectedAds}`)}`);
+      await axiosInstance.delete(ADS_URLS.DELETE_AD(selectedAdsId));
       toast.success(t("Ads deleted successfully"));
       getADS();
     } catch (err) {
@@ -177,18 +179,21 @@ const ADSTable = () => {
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
-                    {new Date(Ads?.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
+                    {new Date(Ads?.createdAt || new Date()).toLocaleDateString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      }
+                    )}
                   </TableCell>
                   <TableCell
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
                     <MoreHorizIcon
-                      onClick={(e) => handleMenuClick(e, Ads._id)}
+                      onClick={(e) => handleMenuClick(e, Ads._id || "")}
                       sx={{ cursor: "pointer" }}
                     />
                   </TableCell>
@@ -258,11 +263,14 @@ const ADSTable = () => {
         handleClose={() => setEditAddPopUpOpen(false)}
         refetchData={() => getADS()}
         ADSData={selectedAds}
+        isEdit={selectedAdsId ? true : false}
+        ADSDataId={selectedAdsId}
       />
       {/* Delete Confirmation Dialog */}
       <DeleteConfirmation
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
+        handleClose={() => setDeleteDialogOpen(false)}
         onConfirm={handleDelete}
       />
     </>

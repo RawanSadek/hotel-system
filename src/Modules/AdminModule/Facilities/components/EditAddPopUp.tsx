@@ -16,6 +16,8 @@ import {
 } from "../../../../Services/END_POINTS";
 import type { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+
 interface EditAddPopUpProps {
   open: boolean;
   handleClose: () => void;
@@ -40,40 +42,57 @@ export default function EditAddPopUp({
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm<IFacilityForm>({
     defaultValues: {
-      name: facilityData?.name || "",
+      name: "",
     },
   });
+
   const { t } = useTranslation();
+
+  // Reset form when modal opens/closes or when facilityData changes
+  useEffect(() => {
+    if (open && isEdit && facilityData) {
+      setValue("name", facilityData.name);
+    } else if (!open) {
+      reset();
+    }
+  }, [open, isEdit, facilityData, setValue, reset]);
+
   const onSubmit = async (data: IFacilityForm) => {
     try {
-      if (isEdit) {
+      if (isEdit && facilityData?._id) {
         await axiosInstance.put(
-          `${FACILITIES_URLS.UPDATE_FACILITY}/${facilityData?._id}`,
+          `${FACILITIES_URLS.UPDATE_FACILITY}/${facilityData._id}`,
           data
         );
-        toast.success("Facility updated successfully");
+        toast.success(t("Facility updated successfully"));
       } else {
         await axiosInstance.post(FACILITIES_URLS.CREATE_FACILITY, data);
-        toast.success("Facility added successfully");
+        toast.success(t("Facility added successfully"));
       }
       refetchData();
       handleClose();
       reset();
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
-      toast.error(error.response?.data?.message || "Something went wrong");
+      toast.error(t(error.response?.data?.message || "Something went wrong"));
     }
   };
 
+  const handleCloseDialog = () => {
+    reset();
+    handleClose();
+  };
+
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        {isEdit ? "Edit" : "Add"} Facility
+        {t(isEdit ? "Edit Facility" : "Add Facility")}
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={handleCloseDialog}
           sx={{
             position: "absolute",
             right: 8,
@@ -90,16 +109,16 @@ export default function EditAddPopUp({
           <TextField
             type="text"
             variant="outlined"
-            placeholder={t((isEdit ? "Edit" : "Add") + " Facility Name")}
+            placeholder={t(isEdit ? "Edit Facility Name" : "Add Facility Name")}
             sx={{ marginTop: "10px", marginBottom: "10px" }}
             {...register("name", {
-              required: "Facility name is required",
+              required: t("Facility name is required"),
               minLength: {
                 value: 3,
-                message: "Minimum length is 3 characters",
+                message: t("Minimum length is 3 characters"),
               },
             })}
-            label="Name"
+            label={t("Name")}
             fullWidth
             error={!!errors.name}
             helperText={errors.name?.message}
@@ -107,8 +126,9 @@ export default function EditAddPopUp({
           />
         </DialogContent>
         <DialogActions sx={{ padding: "20px" }}>
+          <Button onClick={handleCloseDialog}>{t("Cancel")}</Button>
           <Button type="submit" variant="contained" disabled={isSubmitting}>
-            Save
+            {t("Save")}
           </Button>
         </DialogActions>
       </form>

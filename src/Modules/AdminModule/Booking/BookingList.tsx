@@ -9,7 +9,7 @@ import { axiosInstance, BOOKING_URLS } from "../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { BookingListInterface } from "../../../Services/INTERFACES";
+import type { BookingListInterface } from "../../../Services/INTERFACE";
 import Box from "@mui/material/Box";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import loading from "../../../Images/loading.gif";
@@ -21,12 +21,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Button, Menu, MenuItem } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BookingData from "./BookingData";
 
 export default function BookingList() {
-
   const { t } = useTranslation();
   const tableCols = [
     t("Bookings_table_head.room_number"),
@@ -37,7 +34,9 @@ export default function BookingList() {
     "",
   ];
 
-  const [bookingList, setBookingList] = useState<BookingListInterface[] | []>([]);
+  const [bookingList, setBookingList] = useState<BookingListInterface[] | []>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
@@ -51,7 +50,7 @@ export default function BookingList() {
           size: 10,
         },
       });
-      // console.log(response.data);
+
       setBookingList(response?.data?.data?.booking);
       setTotalPages(Math.ceil(response.data.data.totalCount / 10));
     } catch (err) {
@@ -63,22 +62,24 @@ export default function BookingList() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>,id:string) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
     setAnchorEl(event.currentTarget);
-    setSelectedBookingId(id)
+    setSelectedBookingId(id);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-
-   const [selectedBookingId, setSelectedBookingId] = useState<string | null>();
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>();
   const [popUpOpen, setPopUpOpen] = useState(false);
 
-  const handlePopUpOpen = (id:string)=>{
+  const handlePopUpOpen = (id: string) => {
     setPopUpOpen(true);
     setSelectedBookingId(id);
-  }
+  };
 
   useEffect(() => {
     getBookings(activePage);
@@ -163,14 +164,14 @@ export default function BookingList() {
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
-                   {new Date(booking?.endDate).toLocaleDateString("en-US", {
+                    {new Date(booking?.endDate).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </TableCell>
 
-                   <TableCell
+                  <TableCell
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
@@ -186,7 +187,7 @@ export default function BookingList() {
                       aria-controls={open ? "basic-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
-                      onClick={(e)=>handleClick(e, booking?._id)}
+                      onClick={(e) => handleClick(e, booking?._id)}
                       sx={{
                         color: "black",
                         bgcolor: "transparent",
@@ -209,7 +210,9 @@ export default function BookingList() {
                       }}
                       sx={{}}
                     >
-                      <MenuItem onClick={() =>handlePopUpOpen(selectedBookingId!)}>
+                      <MenuItem
+                        onClick={() => handlePopUpOpen(selectedBookingId!)}
+                      >
                         <RemoveRedEyeIcon
                           sx={{
                             color: "#203FC7",
@@ -261,5 +264,5 @@ export default function BookingList() {
         bookingId={selectedBookingId}
       />
     </>
-  )
+  );
 }

@@ -107,7 +107,10 @@ export interface IADSForm {
 export interface IselectedAdd {
   _id: string;
   roomId: string;
-  discount: number;
+  room: {
+    _id: string;
+    discount: number;
+  };
   isActive: boolean;
   roomNumber: string;
   price: number;

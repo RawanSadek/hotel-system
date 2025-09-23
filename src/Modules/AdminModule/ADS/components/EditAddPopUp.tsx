@@ -30,18 +30,16 @@ interface EditAddPopUpProps {
   open: boolean;
   handleClose: () => void;
   isEdit?: boolean;
-  ADSData?: IselectedAdd | undefined;
+  AdsData?: IselectedAdd;
   refetchData: () => void;
-  ADSDataId?: string | null;
 }
 
 export default function EditAddPopUp({
   open,
   handleClose,
   isEdit = false,
-  ADSData,
+  AdsData,
   refetchData,
-  ADSDataId,
 }: EditAddPopUpProps) {
   const [rooms, setRooms] = useState<AddsRoom[] | []>([]);
   const {
@@ -53,8 +51,8 @@ export default function EditAddPopUp({
     setValue,
   } = useForm<IADSForm>({
     defaultValues: {
-      discount: ADSData?.discount || 0,
-      isActive: ADSData?.isActive ? "true" : "false",
+      discount: AdsData?.room.discount || 0,
+      isActive: AdsData?.isActive ? "true" : "false",
     },
   });
 
@@ -72,15 +70,15 @@ export default function EditAddPopUp({
   }, []);
 
   useEffect(() => {
-    if (ADSData && isEdit) {
-      setValue("discount", ADSData.discount);
-      setValue("isActive", ADSData.isActive ? "true" : "false");
+    if (AdsData && isEdit) {
+      setValue("discount", AdsData?.room?.discount);
+      setValue("isActive", AdsData?.isActive ? "true" : "false");
     }
-  }, [reset, ADSData, isEdit, setValue]);
+  }, [reset, AdsData, isEdit, setValue]);
   const onSubmit = async (data: IADSForm) => {
     try {
-      if (isEdit && ADSDataId) {
-        await axiosInstance.put(`${ADS_URLS.UPDATE_AD}/${ADSDataId}`, data);
+      if (isEdit) {
+        await axiosInstance.put(ADS_URLS.UPDATE_AD(AdsData?._id || ""), data);
         toast.success("ADS updated successfully");
       } else {
         await axiosInstance.post(ADS_URLS.CREATE_AD, data);

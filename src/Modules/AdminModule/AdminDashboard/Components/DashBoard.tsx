@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
+import loading from "./../../../../Images/loading.gif";
 import {
   axiosInstance,
   ROOMS_URLS,
@@ -69,7 +70,11 @@ export default function DashBoard() {
           height: "100vh",
         }}
       >
-        <CircularProgress />
+        <img
+          src={loading}
+          alt="loading"
+          style={{ width: "5%", textAlign: "center" }}
+        ></img>
       </Box>
     );
   }

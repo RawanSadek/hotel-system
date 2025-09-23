@@ -48,8 +48,12 @@ export interface RoomsListInterface {
   price: number;
   capacity: number;
   discount: number;
-  images: [string];
-  imgs: [string];
+  images: string[];
+  imgs: string[];
+  facilities:[{
+    _id: string;
+    name: string;
+  }]
 }
 
 export interface FacilitiesInterface {
@@ -91,4 +95,14 @@ export interface IADS {
   room?: RoomsListInterface;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface BookingListInterface {
+  _id: string;
+  totalPrice: number;
+  room: RoomsListInterface;
+  user: {_id: string; userName: string}
+  startDate: string;
+  endDate: string;
+  status: string
 }

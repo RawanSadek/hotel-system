@@ -9,7 +9,6 @@ import { axiosInstance, BOOKING_URLS } from "../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { BookingListInterface } from "../../../Services/INTERFACES";
 import Box from "@mui/material/Box";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import loading from "../../../Images/loading.gif";
@@ -21,12 +20,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Button, Menu, MenuItem } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BookingData from "./BookingData";
+import type { BookingListInterface } from "../../../Services/INTERFACE";
+import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
 
 export default function BookingList() {
-
   const { t } = useTranslation();
   const tableCols = [
     t("Bookings_table_head.room_number"),
@@ -37,7 +36,9 @@ export default function BookingList() {
     "",
   ];
 
-  const [bookingList, setBookingList] = useState<BookingListInterface[] | []>([]);
+  const [bookingList, setBookingList] = useState<BookingListInterface[] | []>(
+    []
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
@@ -63,22 +64,40 @@ export default function BookingList() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>,id:string) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
     setAnchorEl(event.currentTarget);
-    setSelectedBookingId(id)
+    setSelectedBookingId(id);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const handleDelete = async () => {
+    try {
+      const response = await axiosInstance.delete(
+        BOOKING_URLS.DELETE_BOOKING(`${selectedBookingId}`)
+      );
+      toast.success(response.data.message || "Booking deleted successfully");
+      getBookings(activePage);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data?.message || t("Something went wrong"));
+    }
+    setDeleteDialogOpen(false);
+    handleClose();
+  };
 
-   const [selectedBookingId, setSelectedBookingId] = useState<string | null>();
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>();
   const [popUpOpen, setPopUpOpen] = useState(false);
 
-  const handlePopUpOpen = (id:string)=>{
+  const handlePopUpOpen = (id: string) => {
     setPopUpOpen(true);
     setSelectedBookingId(id);
-  }
+  };
 
   useEffect(() => {
     getBookings(activePage);
@@ -92,7 +111,7 @@ export default function BookingList() {
           marginTop: "30px",
         }}
       >
-        <Table aria-label="rooms list">
+        <Table aria-label="booking list">
           <TableHead sx={{ bgcolor: "#E2E5EB", borderRadius: "100px" }}>
             <TableRow>
               {tableCols.map((col) => (
@@ -163,14 +182,14 @@ export default function BookingList() {
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
-                   {new Date(booking?.endDate).toLocaleDateString("en-US", {
+                    {new Date(booking?.endDate).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </TableCell>
 
-                   <TableCell
+                  <TableCell
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
@@ -186,7 +205,7 @@ export default function BookingList() {
                       aria-controls={open ? "basic-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
-                      onClick={(e)=>handleClick(e, booking?._id)}
+                      onClick={(e) => handleClick(e, booking?._id)}
                       sx={{
                         color: "black",
                         bgcolor: "transparent",
@@ -209,7 +228,9 @@ export default function BookingList() {
                       }}
                       sx={{}}
                     >
-                      <MenuItem onClick={() =>handlePopUpOpen(selectedBookingId!)}>
+                      <MenuItem
+                        onClick={() => handlePopUpOpen(selectedBookingId!)}
+                      >
                         <RemoveRedEyeIcon
                           sx={{
                             color: "#203FC7",
@@ -218,6 +239,17 @@ export default function BookingList() {
                           }}
                         />{" "}
                         {t("list_actions.view")}
+                      </MenuItem>
+                      <MenuItem onClick={() => setDeleteDialogOpen(true)}>
+                        <DeleteOutlineIcon
+                          sx={{
+                            color: "#203FC7",
+                            fontSize: "22px",
+                            marginX: "10px",
+                            marginY: "5px",
+                          }}
+                        />
+                        {t("list_actions.delete")}
                       </MenuItem>
                     </Menu>
                   </TableCell>
@@ -260,6 +292,13 @@ export default function BookingList() {
         handleClose={() => setPopUpOpen(false)}
         bookingId={selectedBookingId}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmation
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={handleDelete}
+      />
     </>
-  )
+  );
 }

@@ -80,6 +80,12 @@ export interface FacilitiesInterface {
   _id: string;
   name: string;
 }
+export interface IFacilities {
+  _id: string;
+  name: string;
+  createdAt: string;
+  createdBy: { userName: string } | null;
+}
 export interface AddsRoom {
   _id: string;
   roomNumber: string;

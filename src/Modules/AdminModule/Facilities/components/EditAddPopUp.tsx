@@ -27,6 +27,7 @@ interface EditAddPopUpProps {
 }
 
 interface IFacilityForm {
+  _id?: string;
   name: string;
 }
 
@@ -51,7 +52,6 @@ export default function EditAddPopUp({
 
   const { t } = useTranslation();
 
-  // Reset form when modal opens/closes or when facilityData changes
   useEffect(() => {
     if (open && isEdit && facilityData) {
       setValue("name", facilityData.name);
@@ -62,9 +62,9 @@ export default function EditAddPopUp({
 
   const onSubmit = async (data: IFacilityForm) => {
     try {
-      if (isEdit && facilityData?._id) {
+      if (isEdit) {
         await axiosInstance.put(
-          `${FACILITIES_URLS.UPDATE_FACILITY}/${facilityData._id}`,
+          FACILITIES_URLS.UPDATE_FACILITY(facilityData?._id || ""),
           data
         );
         toast.success(t("Facility updated successfully"));
@@ -74,7 +74,6 @@ export default function EditAddPopUp({
       }
       refetchData();
       handleClose();
-      reset();
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(t(error.response?.data?.message || "Something went wrong"));

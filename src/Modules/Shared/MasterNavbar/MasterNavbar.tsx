@@ -208,7 +208,7 @@ export default function MasterNavbar() {
 
                     <MenuItem
                       component={RouterLink}
-                      to="/fav-list"
+                      to="/favourits"
                       onClick={handleMenuClose}
                     >
                       <FavoriteIcon fontSize="small" />
@@ -273,7 +273,7 @@ export default function MasterNavbar() {
 
             <ListItemButton
               component={RouterLink}
-              to="/fav-list"
+              to="/favourits"
               onClick={() => setDrawerOpen(false)}
             >
               <ListItemText primary="Favorites" />

@@ -5,7 +5,18 @@ export interface loginDataTypes {
   email: string;
   password: string;
 }
-
+export interface IUserData {
+  country: string;
+  createdAt: Date | string;
+  email: string;
+  phoneNumber: number;
+  profileImage: string;
+  role: "admin" | "portal";
+  updatedAt: Date | string;
+  userName: string;
+  verified: boolean;
+  _id: string;
+}
 export interface changePassDataTypes {
   oldPassword: string;
   newPassword: string;
@@ -44,6 +55,7 @@ export interface AuthContextType {
   loginData: JwtPayload | null;
   getLoginData: () => void;
   logout: () => void;
+  userProfile: IUserData | null;
 }
 
 export interface AuthProviderProps {
@@ -74,10 +86,12 @@ export interface RoomsListInterface {
   discount: number;
   images: string[];
   imgs: string[];
-  facilities:[{
-    _id: string;
-    name: string;
-  }]
+  facilities: [
+    {
+      _id: string;
+      name: string;
+    }
+  ];
 }
 
 export interface FacilitiesInterface {
@@ -133,9 +147,9 @@ export interface IADS {
 export interface BookingListInterface {
   _id: string;
   totalPrice: number;
-  room: RoomsListInterface;
-  user: {_id: string; userName: string}
+  room: RoomsListInterface | null;
+  user: { _id: string; userName: string } | null;
   startDate: string;
   endDate: string;
-  status: string
+  status: string;
 }

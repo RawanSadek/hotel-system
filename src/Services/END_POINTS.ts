@@ -46,6 +46,7 @@ export const ROOMS_URLS = {
 export const USERDashBoard_URLS = {
   GET_ALL: `${adminPortalBaseURL}/users`,
   GET_USER_DETAILS: (id: number) => `${adminPortalBaseURL}/users/${id}`,
+  GET_USER_PROFILE: (id: string) => `${adminPortalBaseURL}/users/${id}`,
 };
 
 // Facilities URLs

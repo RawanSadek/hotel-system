@@ -1,4 +1,3 @@
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,7 +5,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
-import { axiosInstance, USERDashBoard_URLS } from "../../../Services/END_POINTS";
+import {
+  axiosInstance,
+  USERDashBoard_URLS,
+} from "../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
@@ -41,7 +43,7 @@ export default function UserList() {
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
-  const getUsers = async (pageNumber:number) => {
+  const getUsers = async (pageNumber: number) => {
     try {
       setIsLoading(true);
       const response = await axiosInstance(USERDashBoard_URLS.GET_ALL, {
@@ -52,7 +54,6 @@ export default function UserList() {
       });
       setUsers(response?.data?.data?.users);
       setTotalPages(Math.ceil(response.data.data.totalCount / 10));
-      console.log(response.data);
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -180,7 +181,7 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
                       overflow={"hidden"}
                     >
                       <img
-                        src={user.profileImage? user.profileImage : noImg}
+                        src={user.profileImage ? user.profileImage : noImg}
                         alt="user image"
                         style={{ width: "100%", borderRadius: "10%" }}
                       />
@@ -198,12 +199,12 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
                   >
                     {user.role}
                   </TableCell>
-               <TableCell
+                  <TableCell
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
                     {user.phoneNumber}
-                  </TableCell> 
+                  </TableCell>
                   <TableCell
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
@@ -234,7 +235,7 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
                       count={totalPages}
                       onChange={(event, value) => {
                         setActivePage(value);
-                        getUsers(value); 
+                        getUsers(value);
                       }}
                       renderItem={(item) => (
                         <PaginationItem

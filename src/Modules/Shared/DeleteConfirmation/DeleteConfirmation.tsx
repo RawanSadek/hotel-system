@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import deleteImg from "../../../Images/delete.png";
-import type { DeleteConfirmationProps } from "../../../Services/INTERFACES";
+import type { DeleteConfirmationProps } from "../../../Services/INTERFACE";
 import { useTranslation } from "react-i18next";
 export default function DeleteConfirmation({
   open,

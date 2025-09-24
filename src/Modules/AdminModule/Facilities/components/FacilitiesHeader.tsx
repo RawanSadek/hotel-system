@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import EditAddPopUp from "./EditAddPopUp";
 import { useState } from "react";
 interface IFacilitiesHeaerProp {
-  getFacilities: React.FC<1>;
+  getFacilities: () => void;
 }
 
 const FacilitiesHeader = ({ getFacilities }: IFacilitiesHeaerProp) => {

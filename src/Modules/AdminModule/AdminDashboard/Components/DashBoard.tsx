@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
+import loading from "./../../../../Images/loading.gif";
 import {
   axiosInstance,
   ROOMS_URLS,
@@ -9,9 +10,9 @@ import {
 import BookingChart from "./BookingChart";
 import UsersChart from "./UsersChart";
 import DashboardCard from "./DashboardCrad";
-import HomeIcon from "@mui/icons-material/Home"; // Icon for Rooms
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter"; // Icon for Facilities
-import CampaignIcon from "@mui/icons-material/Campaign"; // Correct icon for Advertisement
+import HomeIcon from "@mui/icons-material/Home";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import CampaignIcon from "@mui/icons-material/Campaign";
 
 export default function DashBoard() {
   interface RoomList {
@@ -39,12 +40,12 @@ export default function DashBoard() {
   };
 
   const getFacilities = async () => {
-    const response = await axiosInstance.get(FACILITIES_URLS.GET_ALL(1));
+    const response = await axiosInstance.get(FACILITIES_URLS.GET_ALL);
     setRoomFacilitiesList(response.data.data);
   };
 
   const getAds = async () => {
-    const response = await axiosInstance.get(ADS_URLS.GET_ALL(1));
+    const response = await axiosInstance.get(ADS_URLS.GET_ALL);
     setAdsList(response.data.data);
   };
 
@@ -69,7 +70,11 @@ export default function DashBoard() {
           height: "100vh",
         }}
       >
-        <CircularProgress />
+        <img
+          src={loading}
+          alt="loading"
+          style={{ width: "5%", textAlign: "center" }}
+        ></img>
       </Box>
     );
   }
@@ -79,8 +84,7 @@ export default function DashBoard() {
       sx={{
         display: "flex",
         flexDirection: "column",
-
-        gap: 4,
+        gap: 15,
         alignItems: "center",
         justifyContent: "center",
         backgroundImage: `url("/NOt")`,
@@ -90,24 +94,24 @@ export default function DashBoard() {
         textAlign: "left",
       }}
     >
-      <Box component={"div"} sx={{ display: "flex", gap: 4 }}>
+      <Box component={"div"} sx={{ display: "flex", gap: 2 }}>
         <DashboardCard
           count={totalRoomCount}
           label="Rooms"
-          iconColor="rgb(144, 191, 222)"
+          iconColor="#203FC7"
           Icon={HomeIcon}
         />
         <DashboardCard
           count={totalFacilities}
           label="Facilities"
-          iconColor="rgb(144, 191, 222)"
+          iconColor="#203FC7"
           Icon={FitnessCenterIcon}
         />
 
         <DashboardCard
           count={totalAds}
           label="Ads"
-          iconColor="rgb(144, 191, 222)"
+          iconColor="#203FC7"
           Icon={CampaignIcon}
         />
       </Box>

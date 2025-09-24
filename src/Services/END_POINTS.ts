@@ -46,8 +46,20 @@ export const ROOMS_URLS = {
 export const USERDashBoard_URLS = {
   GET_ALL: `${adminPortalBaseURL}/users`,
   GET_USER_DETAILS: (id: number) => `${adminPortalBaseURL}/users/${id}`,
+  GET_USER_PROFILE: (id: string) => `${adminPortalBaseURL}/users/${id}`,
 };
 
+// Facilities URLs
+export const FACILITIES_URLS = {
+  GET_ALL: `${adminPortalBaseURL}/room-facilities`,
+  CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
+  UPDATE_FACILITY: (id: string) =>
+    `${adminPortalBaseURL}/room-facilities/${id}`,
+  GET_FACILITY_DETAILS: (id: string) =>
+    `${adminPortalBaseURL}/room-facilities/${id}`,
+  DELETE_FACILITY: (id: string) =>
+    `${adminPortalBaseURL}/room-facilities/${id}`,
+};
 
 // Booking URLs
 export const BOOKING_URLS = {
@@ -58,21 +70,9 @@ export const BOOKING_URLS = {
   GET_ROOM_DETAILS: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
   DELETE_ROOM: (id: number) => `${adminPortalBaseURL}/rooms/${id}`,
 };
-// Facilities URLs
-export const FACILITIES_URLS = {
-  GET_ALL: (page: number) =>
-    `${adminPortalBaseURL}/room-facilities?pageNumber=${page}`,
-  CREATE_FACILITY: `${adminPortalBaseURL}/room-facilities`,
-  UPDATE_FACILITY: (id: string) =>
-    `${adminPortalBaseURL}/room-facilities/${id}`,
-  GET_FACILITY_DETAILS: (id: string) =>
-    `${adminPortalBaseURL}/room-facilities/${id}`,
-  DELETE_FACILITY: (id: string) =>
-    `${adminPortalBaseURL}/room-facilities/${id}`,
-};
 // ADS URLs
 export const ADS_URLS = {
-  GET_ALL: (page: number) => `${adminPortalBaseURL}/ads?pageNumber=${page}`,
+  GET_ALL: `${adminPortalBaseURL}/ads`,
   CREATE_AD: `${adminPortalBaseURL}/ads`,
   UPDATE_AD: (id: string) => `${adminPortalBaseURL}/ads/${id}`,
   GET_AD_DETAILS: (id: string) => `${adminPortalBaseURL}/ads/${id}`,

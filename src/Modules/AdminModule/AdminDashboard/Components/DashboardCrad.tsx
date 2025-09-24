@@ -3,7 +3,7 @@ import { Paper, Typography, styled } from "@mui/material";
 import { type SvgIconComponent } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "rgb(26, 27, 30)",
+  backgroundColor: "#1A1B1E",
   ...theme.typography.body2,
   textAlign: "start",
   padding: theme.spacing(2),
@@ -30,7 +30,7 @@ const DashboardCard: React.FC<CardProps> = ({
   return (
     <Item
       sx={{
-        padding: "2rem 2rem",
+        padding: "2rem 4rem",
         display: "flex",
         justifyContent: "space-between",
       }}

@@ -25,23 +25,21 @@ import type {
   AddsRoom,
   IADSForm,
   IselectedAdd,
-} from "../../../../Services/INTERFACES";
+} from "../../../../Services/INTERFACE";
 interface EditAddPopUpProps {
   open: boolean;
   handleClose: () => void;
   isEdit?: boolean;
-  ADSData?: { _id: string; name: string } | null;
-  refetchData: React.FC<1>;
-  selectedAdd?: IselectedAdd | null | string;
+  AdsData?: IselectedAdd;
+  refetchData: () => void;
 }
 
 export default function EditAddPopUp({
   open,
   handleClose,
   isEdit = false,
-  ADSData,
+  AdsData,
   refetchData,
-  selectedAdd,
 }: EditAddPopUpProps) {
   const [rooms, setRooms] = useState<AddsRoom[] | []>([]);
   const {
@@ -50,7 +48,13 @@ export default function EditAddPopUp({
     formState: { errors, isSubmitting },
     control,
     reset,
-  } = useForm<IADSForm>({ mode: "onChange" });
+    setValue,
+  } = useForm<IADSForm>({
+    defaultValues: {
+      discount: AdsData?.room.discount || 0,
+      isActive: AdsData?.isActive ? "true" : "false",
+    },
+  });
 
   useEffect(() => {
     async function fetchRooms() {
@@ -66,24 +70,21 @@ export default function EditAddPopUp({
   }, []);
 
   useEffect(() => {
-    if (selectedAdd) {
-      reset({
-        discount: selectedAdd.discount,
-        isActive: selectedAdd.isActive ? "true" : "false",
-        room: selectedAdd.roomId,
-      });
+    if (AdsData && isEdit) {
+      setValue("discount", AdsData?.room?.discount);
+      setValue("isActive", AdsData?.isActive ? "true" : "false");
     }
-  }, [reset, selectedAdd]);
+  }, [reset, AdsData, isEdit, setValue]);
   const onSubmit = async (data: IADSForm) => {
     try {
       if (isEdit) {
-        await axiosInstance.put(`${ADS_URLS.UPDATE_AD}/${ADSData?._id}`, data);
+        await axiosInstance.put(ADS_URLS.UPDATE_AD(AdsData?._id || ""), data);
         toast.success("ADS updated successfully");
       } else {
         await axiosInstance.post(ADS_URLS.CREATE_AD, data);
         toast.success("ADS added successfully");
       }
-      refetchData(1);
+      refetchData();
       handleClose();
       reset();
     } catch (err) {

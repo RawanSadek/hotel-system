@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { IFacilities } from "../../../../Services/INTERFACES";
+import type { IFacilities } from "../../../../Services/INTERFACE";
 import loading from "./../../../../Images/loading.gif";
 import TableFooter from "@mui/material/TableFooter";
 import Stack from "@mui/material/Stack";
@@ -44,31 +44,31 @@ export default function FacilitiesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [selectedFacility, setSelectedFacility] = useState<IFacilities | null>(
-    null
-  );
+  const [selectedFacility, setSelectedFacility] = useState<
+    IFacilities | string
+  >();
   const [editAddPopUpOpen, setEditAddPopUpOpen] = useState(false);
   const handleMenuClick = (
     event: React.MouseEvent<HTMLElement | SVGSVGElement>,
-    id: string
+    facility: IFacilities
   ) => {
     setAnchorEl(event.currentTarget);
-    setSelectedFacility(id);
+    setSelectedFacility(facility);
   };
-  const handleOpenPopUp = () => {
-    setEditAddPopUpOpen(true);
-  };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setSelectedFacility(null);
+    setSelectedFacility(undefined as unknown as IFacilities | string);
   };
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(
-        FACILITIES_URLS.DELETE_FACILITY(`${selectedFacility}`)
-      );
+      if (typeof selectedFacility === "object" && selectedFacility?._id) {
+        await axiosInstance.delete(
+          FACILITIES_URLS.DELETE_FACILITY(selectedFacility._id)
+        );
+      }
       toast.success(t("Facility deleted successfully"));
-      getFacilities({ page: currentPage });
+      getFacilities();
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data?.message || t("Something went wrong"));
@@ -76,10 +76,10 @@ export default function FacilitiesList() {
     setDeleteDialogOpen(false);
     handleMenuClose();
   };
-  const getFacilities = async ({ page }: { page: number }) => {
+  const getFacilities = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance(FACILITIES_URLS.GET_ALL(page));
+      const response = await axiosInstance(FACILITIES_URLS.GET_ALL);
       setFacilities(response?.data?.data?.facilities);
       setTotalPages(Math.ceil(response?.data?.data?.totalCount / 10));
     } catch (err) {
@@ -90,7 +90,7 @@ export default function FacilitiesList() {
   };
 
   useEffect(() => {
-    getFacilities({ page: currentPage });
+    getFacilities();
   }, [currentPage]);
 
   return (
@@ -173,7 +173,7 @@ export default function FacilitiesList() {
                     sx={{ paddingY: "10px", border: "none" }}
                   >
                     <MoreHorizIcon
-                      onClick={(e) => handleMenuClick(e, facility._id)}
+                      onClick={(e) => handleMenuClick(e, facility)}
                       sx={{ cursor: "pointer" }}
                     />
                   </TableCell>
@@ -190,7 +190,7 @@ export default function FacilitiesList() {
                     page={currentPage}
                     onChange={(_, newPage) => {
                       setCurrentPage(newPage);
-                      getFacilities({ page: newPage });
+                      getFacilities();
                     }}
                     renderItem={(item) => (
                       <PaginationItem
@@ -234,13 +234,19 @@ export default function FacilitiesList() {
       </Menu>
       <EditAddPopUp
         open={editAddPopUpOpen}
-        handleClose={() => setEditAddPopUpOpen(false)}
+        handleClose={() => {
+          setEditAddPopUpOpen(false);
+          handleMenuClose();
+        }}
         isEdit={Boolean(selectedFacility)}
-        refetchData={() => getFacilities({ page: currentPage })}
-        facilityData={selectedFacility}
+        refetchData={getFacilities}
+        facilityData={
+          typeof selectedFacility === "object" ? selectedFacility : null
+        }
       />
       {/* Delete Confirmation Dialog */}
       <DeleteConfirmation
+        handleClose={() => setDeleteDialogOpen(false)}
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
         onConfirm={handleDelete}

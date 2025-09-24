@@ -174,7 +174,7 @@ export default function AdminNavbar({
             <Grid item xs={12} sm={4} display="flex" justifyContent="center" alignItems="start">
               <Avatar
                 src={avatar || undefined}
-                alt={loginData.userName}
+                alt={loginData?.userName}
                 sx={{ width: 96, height: 96 }}
                 imgProps={{
                   onError: (e) => {
@@ -188,14 +188,14 @@ export default function AdminNavbar({
             <Grid item xs={12} sm={8}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                 <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
-                  {loginData.userName}
+                  {loginData?.userName}
                 </Typography>
-                {loginData.role !== "—" && (
+                {loginData?.role !== "—" && (
                   <Chip
                     size="small"
                     color="primary"
                     icon={<ShieldOutlinedIcon sx={{ fontSize: 16 }} />}
-                    label={loginData.role}
+                    label={loginData?.role}
                     sx={{ fontWeight: 600 }}
                   />
                 )}
@@ -205,11 +205,11 @@ export default function AdminNavbar({
 
               <DetailRow
                 label={isRTL ? "البريد الإلكتروني" : "Email"}
-                value={loginData.email}
+                value={loginData?.email}
               />
               <DetailRow
                 label="ID"
-                value={loginData._id}
+                value={loginData?._id}
               />
             </Grid>
           </Grid>

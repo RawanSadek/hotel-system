@@ -24,6 +24,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { FavoriteBorder } from "@mui/icons-material";
+import GTranslateIcon from "@mui/icons-material/GTranslate";
 import { AuthContext } from "../../../Contexts/AuthContext/AuthContext";
 export default function MasterNavbar() {
   const isMobile = useMediaQuery("(max-width: 900px)");
@@ -215,6 +216,10 @@ export default function MasterNavbar() {
                       Favorites
                     </MenuItem>
 
+                    <MenuItem onClick={handleMenuClose}>
+                      <GTranslateIcon fontSize="small" />
+                      Translate
+                    </MenuItem>
                     <MenuItem
                       onClick={handleLogout}
                       sx={{ borderTop: "1px solid #E5E5E5" }}

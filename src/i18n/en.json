@@ -81,17 +81,29 @@
     "edit": "Edit",
     "delete": "Delete"
   },
-
+"User":{
+  "User Table Details":" User Table Details ",
+  "You can check all details": "You can check all details",
     "Users_table_head": {
     "userName": "UserName",
     "image": "Image",
     "email": "Email",
     "role": "Role",
     "phoneNumber": "PhoneNumber"
+  }
+},
+   "Sidebar": {
+    "home": "Home",
+    "users": "Users",
+    "rooms": "Rooms",
+    "ads": "Ads",
+    "booking": "Booking",
+    "facilities": "Facilities",
+    "changePassword": "Change password",
+    "logout": "Logout"
   },
-   "SideBar": {
-    "Home": "Home",
-    "Users": "Users"
+   "Navbar": {
+    "profile": " profile"
   },
   "forgot_title": "Forgot password",
   "forgot_subtitle": "If you already have an account register",

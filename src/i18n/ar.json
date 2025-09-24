@@ -81,18 +81,33 @@
     "edit": "تعديل",
     "delete": "حذف"
   },
+"User":{
+  "User Table Details":"تفاصيل جدول المستخدمين",
+  "You can check all details": "يمكنك التحقق من جميع التفاصيل",
 
-   "Users_table_head": {
+ "Users_table_head": {
     "userName": "أسم المستخدم",
     "image": "الصورة",
     "email": "البريد الإلكتروني",
     "role": "نوع المستخدم",
     "phoneNumber": "رقم الهاتف"
+  }
+},
+"Sidebar": {
+    "home": "الصفحة الرئيسية",
+    "users": "المستخدمون",
+    "rooms": "الغرف",
+    "ads": "الإعلانات",
+    "booking": "الحجوزات",
+    "facilities": "الخدمات",
+    "changePassword": "تغيير كلمة المرور",
+    "logout": "تسجيل الخروج"
+  
   },
-   "SideBar": {
-    "Home": "الصفحةالرئيسية",
-    "Users": "المستخدمين"
+  "Navbar": {
+    "profile": " حسابي"
   },
+
   "forgot_title": "نسيت كلمة المرور",
   "forgot_subtitle": "إذا كان لديك حساب بالفعل، سجل الدخول",
   "forgot_login_text": "يمكنك",

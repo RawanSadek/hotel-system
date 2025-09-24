@@ -10,7 +10,7 @@ import { axiosInstance, USERDashBoard_URLS } from "../../../Services/END_POINTS"
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { UserListInterface } from "../../../Services/INTERFACES";
+
 import noImg from "../../../Images/noImg.png";
 import Box from "@mui/material/Box";
 import loading from "../../../Images/loading.gif";
@@ -20,24 +20,24 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {  MenuItem } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Avatar, Grid, MenuItem } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import type { UserListInterface } from "../../../Services/INTERFACE";
 
 
 export default function UserList() {
   const { t } = useTranslation();
   const tableCols = [
-    t("Users_table_head.userName"),
-    t("Users_table_head.image"),
-    t("Users_table_head.email"),
-    t("Users_table_head.role"),
-    t("Users_table_head.phoneNumber"),
+    t("User.Users_table_head.userName"),
+    t("User.Users_table_head.image"),
+    t("User.Users_table_head.email"),
+    t("User.Users_table_head.role"),
+    t("User.Users_table_head.phoneNumber"),
     "",
   ];
 
   const [users, setUsers] = useState<UserListInterface[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const [totalRooms, setTotalRooms] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
@@ -51,7 +51,6 @@ export default function UserList() {
         },
       });
       setUsers(response?.data?.data?.users);
-      // setTotalRooms(response.data.data.totalCount);
       setTotalPages(Math.ceil(response.data.data.totalCount / 10));
       console.log(response.data);
     } catch (err) {
@@ -60,16 +59,25 @@ export default function UserList() {
     }
     setIsLoading(false);
   };
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserListInterface | null>(null);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleOpenDetails = (user: UserListInterface) => {
+    setSelectedUser(user);
+    setDetailsOpen(true);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseDetails = () => {
+    setDetailsOpen(false);
+    setSelectedUser(null);
   };
-
+function DetailRow({ label, value }: { label: string; value?: string }) {
+  return (
+    <Box sx={{ display: "flex", gap: 1.5, mb: 0.5 }}>
+      <Typography sx={{ minWidth: 120, color: "text.secondary" }}>{label}:</Typography>
+      <Typography sx={{ fontWeight: 600 }}>{value || "-"}</Typography>
+    </Box>
+  );
+}
   useEffect(() => {
     getUsers(activePage);
   }, []);
@@ -77,6 +85,29 @@ export default function UserList() {
   return (
 
     <>
+       <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingTop: "20px",
+            }}
+          >
+            <Stack>
+              <Typography
+                variant="h4"
+                fontSize="24px"
+                fontWeight="bold"
+                color="#1F263E"
+              >
+                {t("User.User Table Details")}
+              </Typography>
+              <Typography color="#323C47" sx={{ marginTop: "10px" }}>
+                {t("User.You can check all details")}
+              </Typography>
+            </Stack>
+    
+          </Box> 
       <TableContainer
         sx={{
           borderTopLeftRadius: "8px",
@@ -177,8 +208,9 @@ export default function UserList() {
                     align="center"
                     sx={{ paddingY: "10px", border: "none" }}
                   >
-                     <MenuItem onClick={handleClose}>
+                     <MenuItem >
                         <RemoveRedEyeIcon
+                        onClick={() => handleOpenDetails(user)}
                           sx={{
                             color: "#203FC7",
                             fontSize: "22px",
@@ -221,6 +253,44 @@ export default function UserList() {
           </TableFooter>
         </Table>
       </TableContainer>
+       <Dialog open={detailsOpen} onClose={handleCloseDetails} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ fontWeight: 700 }}>
+          {t("User.Users_table_head.userName")}: {selectedUser?.userName || "-"}
+        </DialogTitle>
+
+        <DialogContent dividers sx={{ py: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4} display="flex" justifyContent="center" alignItems="start">
+              <Avatar
+                src={selectedUser?.profileImage || noImg}
+                alt={selectedUser?.userName || "user"}
+                sx={{ width: 96, height: 96 }}
+                imgProps={{
+                  onError: (e) => {
+                    (e.currentTarget as HTMLImageElement).src = noImg;
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={8}>
+              <Stack spacing={1}>
+                <DetailRow label={t("User.Users_table_head.userName")} value={selectedUser?.userName} />
+<DetailRow label={t("User.Users_table_head.email")} value={selectedUser?.email} />
+<DetailRow label={t("User.Users_table_head.role")} value={selectedUser?.role} />
+<DetailRow label={t("User.Users_table_head.phoneNumber")} value={selectedUser?.phoneNumber || "-"} />
+
+              </Stack>
+            </Grid>
+          </Grid>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleCloseDetails} variant="contained">
+            {t("close") || "Close"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
 
   );

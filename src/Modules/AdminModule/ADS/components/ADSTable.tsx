@@ -264,7 +264,7 @@ const ADSTable = () => {
           handleMenuClose();
         }}
         refetchData={() => getADS()}
-        AdsData={selectedAds}
+        AdsData={typeof selectedAds === "object" ? selectedAds : null}
         isEdit={selectedAds ? true : false}
       />
       {/* Delete Confirmation Dialog */}

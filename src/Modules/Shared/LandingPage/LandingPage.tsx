@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Box } from "@mui/material";
+import Home from "./components/Home";
 
 export default function LandingPage() {
   return (
-    <div>
-      LandingPage
-      <Link to="/login">Login</Link>
-    </div>
+    <Box>
+      <Home />
+    </Box>
   );
 }

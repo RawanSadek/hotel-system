@@ -120,8 +120,8 @@ const handleContinue = () => {
         sx={{ color: "#1F2B6B" , mb:5 }}
       >
         {roomDetails?.roomNumber
-          ? `Room #${roomDetails.roomNumber}`
-          : "Room Details"}
+          ? ` ${roomDetails.roomNumber}`
+          : ""}
       </Typography>
    
 

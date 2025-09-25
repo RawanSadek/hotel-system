@@ -29,7 +29,6 @@ import {
 } from "@mui/material";
 
 import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
-import type { UserListInterface } from "../../../Services/INTERFACE";
 
 type AdminNavbarProps = {
   open?: boolean;
@@ -171,7 +170,8 @@ export default function AdminNavbar({
 
         <DialogContent dividers sx={{ py: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} display="flex" justifyContent="center" alignItems="start">
+            <Grid size={{ xs: 12, sm: 4 }} display="flex" justifyContent="center" alignItems="start">         
+
               <Avatar
                 src={avatar || undefined}
                 alt={loginData?.userName}
@@ -184,8 +184,8 @@ export default function AdminNavbar({
                 }}
               />
             </Grid>
+         <Grid size={{ xs: 12, sm: 8 }}>
 
-            <Grid item xs={12} sm={8}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                 <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
                   {loginData?.userName}

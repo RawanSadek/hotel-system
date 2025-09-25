@@ -85,3 +85,8 @@ export const ADMINChart = {
 
 // USER PORTAL
 // -----------
+//rooms Portal 
+export const ROOMPORTAL_URL = {
+  GET_ALL: `${userPortalBaseURL}/rooms/available`,
+GET_ROOM_DETAILS: (id: string) => `${userPortalBaseURL}/rooms/${id}`,};
+

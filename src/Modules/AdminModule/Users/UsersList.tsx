@@ -261,7 +261,7 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
 
         <DialogContent dividers sx={{ py: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} display="flex" justifyContent="center" alignItems="start">
+            <Grid size={{ xs: 12, sm: 4  }} display="flex" justifyContent="center" alignItems="start">
               <Avatar
                 src={selectedUser?.profileImage || noImg}
                 alt={selectedUser?.userName || "user"}
@@ -274,7 +274,7 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
               />
             </Grid>
 
-            <Grid item xs={12} sm={8}>
+            <Grid size={{ xs: 12, sm: 8 }} >
               <Stack spacing={1}>
                 <DetailRow label={t("User.Users_table_head.userName")} value={selectedUser?.userName} />
 <DetailRow label={t("User.Users_table_head.email")} value={selectedUser?.email} />

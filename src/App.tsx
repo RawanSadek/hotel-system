@@ -21,6 +21,7 @@ import { AuthContextProvider } from "./Contexts/AuthContext/AuthContext";
 import FacilitiesView from "./Modules/AdminModule/Facilities/FacilitiesView";
 import ADSList from "./Modules/AdminModule/ADS/ADSList";
 import UsersList from "./Modules/AdminModule/Users/UsersList";
+import Payment from "./Modules/UserModule/Payment/Payment";
 
 
 function App() {
@@ -32,9 +33,11 @@ function App() {
       children: [
         { index: true, element: <LandingPage /> },
         { path: "landing-page", element: <LandingPage /> },
-        { path: "room-details", element: <RoomDetails /> },
+        { path: "room-details/:id", element: <RoomDetails /> },
         { path: "explore", element: <Explore /> },
         { path: "favourits", element: <Favourites /> },
+        { path: "Payment", element: <Payment /> },
+
       ],
     },
     {
@@ -52,7 +55,10 @@ function App() {
 
     {
       path: "dashboard",
-      element: <AdminLayout />,
+      element:
+          <MasterLayout />
+       
+      ,
       errorElement: <NotFound />,
       children: [
         {index: true, element: <AdminDashboard/>},

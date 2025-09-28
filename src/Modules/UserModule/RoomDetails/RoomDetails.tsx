@@ -10,8 +10,14 @@ import {
   Button,
   Rating,
   TextField,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContentText,
+  DialogContent,
+  
 } from "@mui/material";
-import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import nopic from "../../../Images/no-pic.png";
 
 import HotelIcon from "@mui/icons-material/Hotel";
@@ -33,7 +39,6 @@ import { axiosInstance, ROOMPORTAL_URL } from "../../../Services/END_POINTS";
 import type { RoomsListInterface } from "../../../Services/INTERFACE";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import loading from "../../../Images/loading.gif";
 import { AuthContext } from "../../../Contexts/AuthContext/AuthContext";
 
 export default function RoomDetails() {
@@ -84,18 +89,30 @@ export default function RoomDetails() {
   }, [id]);
 const { loginData } = useContext(AuthContext);
 const navigate = useNavigate();
+const location = useLocation();
 
 const isLoggedIn = Boolean(localStorage.getItem("token")) && !!loginData;
 
+const [loginPromptOpen, setLoginPromptOpen] = useState(false);
+
 const handleContinue = () => {
   if (isLoggedIn) {
-    navigate("/Payment"); 
+    navigate("/Payment");
   } else {
-    toast.warning("You must login first");
+    setLoginPromptOpen(true);
   }
 };
-  return (
-    <Box sx={{ px: { xs: 2, sm: 3 }, py: 3, maxWidth: 1200, mx: "auto" }}>
+
+const closePrompt = () => setLoginPromptOpen(false);
+
+const goToLogin = () => {
+  setLoginPromptOpen(false);
+navigate("/login", { state: { from: location }, replace: true });
+};
+
+  return ( 
+    <>
+      <Box sx={{ px: { xs: 2, sm: 3 }, py: 3, maxWidth: 1200, mx: "auto" }}>
       {/* Breadcrumb */}
       <Breadcrumbs sx={{ mb: 2 }}>
         <MuiLink
@@ -216,7 +233,7 @@ const handleContinue = () => {
 
     
       <Grid container spacing={2} sx={{ mt: 3 }}>
-        <Grid size={{ xs: 6, md: 8 }}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Stack spacing={1}>
             <Typography
               variant="body1"
@@ -328,7 +345,7 @@ const handleContinue = () => {
           </Grid>
         </Grid>
 
-        <Grid size={{ xs: 6, md: 4 }}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Paper
             elevation={0}
             sx={{
@@ -400,7 +417,7 @@ const handleContinue = () => {
                 You will pay $480 USD per 2 Person
               </Typography>
 
-             <Button
+           <Button
   variant="contained"
   size="large"
   fullWidth
@@ -420,6 +437,7 @@ const handleContinue = () => {
 >
   Continue Book
 </Button>
+
 
             </Stack>
           </Paper>
@@ -547,5 +565,21 @@ const handleContinue = () => {
       </Box>
          ) : ( "" )}
     </Box>
+      <Dialog open={loginPromptOpen} onClose={closePrompt} sx={{
+        
+      }}>
+      <DialogTitle>Login required</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          You must login first to continue booking.
+        </DialogContentText >
+      </DialogContent>
+      <DialogActions>
+        <Button variant="outlined"  onClick={closePrompt}>Cancel</Button>
+        <Button variant="contained" onClick={goToLogin}>Login</Button>
+      </DialogActions>
+    </Dialog></>
+  
   );
 }
+

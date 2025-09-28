@@ -148,7 +148,8 @@ export interface BookingListInterface {
   _id: string;
   totalPrice: number;
   room: RoomsListInterface | null;
-  user: { _id: string; userName: string } | null;
+  user: {userName: string } | null;
+  // user: { _id: string; userName: string } | null;
   startDate: string;
   endDate: string;
   status: string;
@@ -159,7 +160,7 @@ export interface UserListInterface {
   profileImage: string
   email: string;
   role: string;
-  phoneNumber: number;
+  phoneNumber: number | string;
   country:string;
 
 }

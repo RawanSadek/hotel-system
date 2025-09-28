@@ -17,6 +17,7 @@
     "@mui/x-charts": "^8.11.3",
     "@mui/x-date-pickers": "^8.11.3",
     "@mui/x-date-pickers-pro": "^8.11.3",
+    "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.9.0",
     "axios": "^1.12.2",
     "dayjs": "^1.11.18",

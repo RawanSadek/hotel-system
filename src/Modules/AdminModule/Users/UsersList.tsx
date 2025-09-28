@@ -218,7 +218,6 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
                             marginX: "10px",
                           }}
                         />{" "}
-                        {/* {t("list_actions.view")} */}
                       </MenuItem>
                   
                   </TableCell>
@@ -279,7 +278,7 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
                 <DetailRow label={t("User.Users_table_head.userName")} value={selectedUser?.userName} />
 <DetailRow label={t("User.Users_table_head.email")} value={selectedUser?.email} />
 <DetailRow label={t("User.Users_table_head.role")} value={selectedUser?.role} />
-<DetailRow label={t("User.Users_table_head.phoneNumber")} value={selectedUser?.phoneNumber || "-"} />
+ <DetailRow label={t("User.Users_table_head.phoneNumber")} value={selectedUser?.phoneNumber || "-"} /> 
 
               </Stack>
             </Grid>

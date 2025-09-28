@@ -18,7 +18,7 @@ import {
 } from "../../../Services/VALIDATIONS";
 import { axiosInstance, USERS_URLS } from "../../../Services/END_POINTS";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { AxiosError } from "axios";
 import loading from "../../../Images/loading.gif";
 import { AuthContext } from "../../../Contexts/AuthContext/AuthContext";
@@ -26,10 +26,14 @@ import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const { t } = useTranslation();
+    const location = useLocation();
+
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const { getLoginData } = useContext(AuthContext);
+  const from =
+    (location.state as { from?: Location })?.from?.pathname || "/";
 
   const {
     register,
@@ -46,6 +50,8 @@ export default function Login() {
       );
       localStorage.setItem("userData", JSON.stringify(response.data.data.user));
       getLoginData();
+          navigate(from, { replace: true });
+
       toast.success(`Welcome to StayCation!`);
       if (response.data.data.user.role === "admin") {
         navigate("/dashboard");

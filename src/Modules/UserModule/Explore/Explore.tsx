@@ -31,13 +31,13 @@ export default function Explore() {
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
-  const [clickedRoom, setClickedRoom] = useState<{
-    anchorEl: HTMLElement | null;
-    roomId: string | null;
-  }>({
-    anchorEl: null,
-    roomId: null,
-  });
+  // const [clickedRoom, setClickedRoom] = useState<{
+  //   anchorEl: HTMLElement | null;
+  //   roomId: string | null;
+  // }>({
+  //   anchorEl: null,
+  //   roomId: null,
+  // });
   const getAllRooms = async (pageNumber: number) => {
     try {
       setIsLoading(true);

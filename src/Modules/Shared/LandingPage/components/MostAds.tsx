@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
 import FavCard from "./FavCard";
@@ -74,7 +74,7 @@ const MostAds = () => {
         <Typography
           sx={{
             fontSize: "24px",
-            color: "var(--primary-color)",
+            color: "#152C5B",
             fontWeight: "bolder",
             marginBottom: 2,
           }}
@@ -85,7 +85,7 @@ const MostAds = () => {
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item>
+          <Box component={"div"} sx={{ flex: 4, height: "100%" }}>
             {rooms?.length > 0 && (
               <FavCard
                 room={rooms[0]}
@@ -94,11 +94,12 @@ const MostAds = () => {
                 isLarge={true}
               />
             )}
-          </Grid>
-          <Grid item>
-            <Grid container spacing={3}>
+          </Box>
+
+          <Box component={"div"} sx={{ flex: 2 }}>
+            <Grid container spacing={2}>
               {rooms.slice(1, 5).map((room) => (
-                <Grid component="div" item xs={12} sm={8} md={4} key={room._id}>
+                <Grid item xs={6} key={room._id}>
                   <FavCard
                     room={room}
                     onFavorite={handleImageClick}
@@ -107,7 +108,7 @@ const MostAds = () => {
                 </Grid>
               ))}
             </Grid>
-          </Grid>
+          </Box>
         </Grid>
       </Container>
     </>

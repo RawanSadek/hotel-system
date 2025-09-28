@@ -87,7 +87,7 @@ const AdsSwiper = () => {
         <Typography
           sx={{
             fontSize: "1.5rem",
-            color: "var(--primary-color)",
+            color: "#152C5B",
             fontWeight: "bolder",
             display: "block",
           }}
@@ -128,7 +128,7 @@ const AdsSwiper = () => {
         <Typography
           sx={{
             fontSize: "1.5rem",
-            color: "var(--primary-color)",
+            color: "#152C5B",
             fontWeight: "bolder",
           }}
           align="left"

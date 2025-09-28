@@ -63,7 +63,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
               component="div"
               sx={{
                 fontWeight: "bold",
-                color: "var(--primary-color)",
+                color: "#152C5B",
                 marginBottom: 2,
               }}
             >
@@ -102,14 +102,14 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           </CardContent>
           <Box sx={{ display: "flex", padding: 1 }}>
             <Button
-              sx={{ color: "var(--primary-color)" }}
+              sx={{ color: "#152C5B" }}
               startIcon={
                 <ArrowBack
                   sx={{
                     width: "57px",
                     height: "57px",
                     backgroundColor: "transparent",
-                    border: "5px solid var(--primary-color)",
+                    border: "5px solid #152C5B",
                     borderRadius: "50%",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.15)",
                     padding: "4px",
@@ -124,7 +124,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                     width: "57px",
                     height: "57px",
                     backgroundColor: "transparent",
-                    border: "5px solid var(--primary-color)",
+                    border: "5px solid #152C5B",
                     borderRadius: "50%",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.15)",
                     padding: "4px",

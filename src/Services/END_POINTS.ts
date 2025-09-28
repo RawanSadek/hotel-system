@@ -97,3 +97,6 @@ export const FAVOURITES_URLS = {
   ADD_FAVOURITE: `${userPortalBaseURL}/favorite-rooms`,
   REMOVE_FAVOURITE: (id: string) => `${userPortalBaseURL}/favorite-rooms/${id}`,
 };
+export const USER_ROOMS_URLS = {
+  GET_ALL: `${userPortalBaseURL}/rooms/available?page=1&size=10&startDate=2023-01-20&endDate=2023-01-30`,
+};

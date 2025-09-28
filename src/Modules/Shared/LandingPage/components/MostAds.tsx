@@ -4,7 +4,10 @@ import { toast } from "react-toastify";
 import FavCard from "./FavCard";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance, ROOMS_URLS } from "../../../../Services/END_POINTS";
+import {
+  axiosInstance,
+  USER_ROOMS_URLS,
+} from "../../../../Services/END_POINTS";
 interface Room {
   _id: string;
   roomNumber: string;
@@ -18,9 +21,7 @@ const MostAds = () => {
   useEffect(() => {
     const callRooms = async () => {
       try {
-        const response = await axiosInstance.get(ROOMS_URLS.GET_ALL);
-        console.log("section");
-        console.log(response.data.data.rooms);
+        const response = await axiosInstance.get(USER_ROOMS_URLS.GET_ALL);
         if (response.data.success) {
           setRooms(response.data.data.rooms);
         } else {

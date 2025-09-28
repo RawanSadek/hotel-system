@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import {
   ADS_URLS,
   axiosInstance,
-  ROOMS_URLS,
+  USER_ROOMS_URLS,
 } from "../../../../Services/END_POINTS";
 import type { RoomsListInterface } from "../../../../Services/INTERFACE";
 
@@ -51,7 +51,7 @@ const AdsSwiper = () => {
 
   const getRooms = async () => {
     try {
-      const response = await axiosInstance.get(ROOMS_URLS.GET_ALL);
+      const response = await axiosInstance.get(USER_ROOMS_URLS.GET_ALL);
       setRooms(response.data.data.rooms);
     } catch (error) {
       console.log(error);

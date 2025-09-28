@@ -15,10 +15,10 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import photo from "../../../../Images/landing/home.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-import { type DateRange } from "@mui/x-date-pickers-pro";
+import { DatePicker } from "@mui/x-date-pickers";
+
 const Home = () => {
-  const [value, setValue] = useState<DateRange<Dayjs>>([null, null]);
+  const [value, setValue] = useState<Dayjs | null>(null);
   const [capacityValue, setCapacityValue] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -57,11 +57,7 @@ const Home = () => {
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateRangePicker"]}>
-            <DateRangePicker
-              format="YYYY-MM-DD"
-              value={value}
-              minDate={dayjs()}
-            />
+            <DatePicker format="YYYY-MM-DD" value={value} minDate={dayjs()} />
           </DemoContainer>
         </LocalizationProvider>
 

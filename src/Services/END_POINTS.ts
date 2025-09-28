@@ -85,8 +85,15 @@ export const ADMINChart = {
 
 // USER PORTAL
 // -----------
-//rooms Portal 
+//rooms Portal
 export const ROOMPORTAL_URL = {
   GET_ALL: `${userPortalBaseURL}/rooms/available`,
-GET_ROOM_DETAILS: (id: string) => `${userPortalBaseURL}/rooms/${id}`,};
+  GET_ROOM_DETAILS: (id: string) => `${userPortalBaseURL}/rooms/${id}`,
+};
 
+//Favourites URLs
+export const FAVOURITES_URLS = {
+  GET_ALL: `${userPortalBaseURL}/favorite-rooms`,
+  ADD_FAVOURITE: `${userPortalBaseURL}/favorite-rooms`,
+  REMOVE_FAVOURITE: (id: string) => `${userPortalBaseURL}/favorite-rooms/${id}`,
+};

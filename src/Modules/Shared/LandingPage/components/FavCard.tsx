@@ -46,7 +46,7 @@ const FavCard: React.FC<FavCardProps> = ({
         sx={{
           height: isLarge ? "100%" : "250px",
           objectFit: "cover",
-          width: isLarge ? "100%" : "250px",
+          width: isLarge ? "100%" : "300px",
         }}
       />
       <Box

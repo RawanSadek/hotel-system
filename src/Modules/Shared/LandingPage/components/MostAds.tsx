@@ -85,7 +85,7 @@ const MostAds = () => {
         </Typography>
 
         <Grid container spacing={3}>
-          <Box component={"div"} sx={{ flex: 4, height: "100%" }}>
+          <Box component={"div"} sx={{ flex: 6, height: "71vh" }}>
             {rooms?.length > 0 && (
               <FavCard
                 room={rooms[0]}
@@ -96,10 +96,10 @@ const MostAds = () => {
             )}
           </Box>
 
-          <Box component={"div"} sx={{ flex: 2 }}>
+          <Box component={"div"} sx={{ flex: 8 }}>
             <Grid container spacing={2}>
               {rooms.slice(1, 5).map((room) => (
-                <Grid item xs={6} key={room._id}>
+                <Grid item xs={6} md={4} key={room._id}>
                   <FavCard
                     room={room}
                     onFavorite={handleImageClick}

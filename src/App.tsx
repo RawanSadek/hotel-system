@@ -25,6 +25,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AdminLayout from "./Modules/Shared/AdminLayout/AdminLayout";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -56,10 +57,8 @@ function App() {
     {
       path: "dashboard",
 
-      element:
-          <AdminLayout />
-       
-      ,
+      element: <AdminLayout />,
+
       errorElement: <NotFound />,
       children: [
         { index: true, element: <AdminDashboard /> },

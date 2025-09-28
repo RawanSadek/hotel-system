@@ -148,7 +148,7 @@ export default function MasterNavbar() {
                         fontWeight: 500,
                       }}
                       component={RouterLink}
-                      to="/favourits"
+                      to="/favourites"
                     >
                       <FavoriteBorder />
                     </MUILink>{" "}

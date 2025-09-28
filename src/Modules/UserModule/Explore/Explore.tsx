@@ -17,7 +17,7 @@ import { Link as RouterLink } from "react-router-dom";
 import type { RoomsListInterface } from "../../../Services/INTERFACE";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { axiosInstance, ROOMPORTAL_URL } from "../../../Services/END_POINTS";
+import { axiosInstance, FAVOURITES_URLS, ROOMPORTAL_URL } from "../../../Services/END_POINTS";
 import type { AxiosError } from "axios";
 import loading from "../../../Images/loading.gif";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -31,13 +31,13 @@ export default function Explore() {
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
-  const [clickedRoom, setClickedRoom] = useState<{
-    anchorEl: HTMLElement | null;
-    roomId: string | null;
-  }>({
-    anchorEl: null,
-    roomId: null,
-  });
+  // const [clickedRoom, setClickedRoom] = useState<{
+  //   anchorEl: HTMLElement | null;
+  //   roomId: string | null;
+  // }>({
+  //   anchorEl: null,
+  //   roomId: null,
+  // });
   const getAllRooms = async (pageNumber: number) => {
     try {
       setIsLoading(true);
@@ -56,6 +56,20 @@ export default function Explore() {
     }
     setIsLoading(false);
   };
+
+  const addToFavs = async(roomId: string) => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.post(FAVOURITES_URLS.ADD_FAVOURITE, {roomId});
+      toast.success(response.data.message)
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data?.message || "Something went wrong");
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     getAllRooms(activePage);
   }, []);
@@ -169,24 +183,25 @@ export default function Explore() {
                       <RemoveRedEyeOutlinedIcon />
                     </IconButton>
                   </Tooltip>
-                   
-      {localStorage.getItem("token") && loginData ? (
-                  <Tooltip title="Favorite">
-                    <IconButton
-                      onClick={(e) => {
-                        e.preventDefault(); /* حطي لوجيك الفيفوريت هنا */
-                      }}
-                      size="small"
-                      sx={{
-                        pointerEvents: "auto",
-                        bgcolor: "rgba(255,255,255,.95)",
-                        "&:hover": { bgcolor: "rgba(255,255,255,1)" },
-                        boxShadow: "0 4px 14px rgba(0,0,0,.18)",
-                      }}
-                    >
-                      <FavoriteBorderOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>  ) : ( "" )}
+
+                  {localStorage.getItem("token") && loginData ? (
+                    <Tooltip title="Favorite">
+                      <IconButton
+                        onClick={() => addToFavs(room._id)}
+                        size="small"
+                        sx={{
+                          pointerEvents: "auto",
+                          bgcolor: "rgba(255,255,255,.95)",
+                          "&:hover": { bgcolor: "rgba(255,255,255,1)" },
+                          boxShadow: "0 4px 14px rgba(0,0,0,.18)",
+                        }}
+                      >
+                        <FavoriteBorderOutlinedIcon />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    ""
+                  )}
                 </Box>
 
                 <Box

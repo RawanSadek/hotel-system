@@ -36,7 +36,7 @@ function App() {
         { path: "landing-page", element: <LandingPage /> },
         { path: "room-details/:id", element: <RoomDetails /> },
         { path: "explore", element: <Explore /> },
-        { path: "favourits", element: <Favourites /> },
+        { path: "favourites", element: <Favourites /> },
         { path: "Payment", element: <Payment /> },
       ],
     },
@@ -55,8 +55,11 @@ function App() {
 
     {
       path: "dashboard",
-      element: <MasterLayout />,
 
+      element:
+          <AdminLayout />
+       
+      ,
       errorElement: <NotFound />,
       children: [
         { index: true, element: <AdminDashboard /> },

@@ -3,8 +3,15 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import smallphoto2 from "../../../../Images/img1.png";
 import { Link as RouterLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../../Contexts/AuthContext/AuthContext";
+import {
+  axiosInstance,
+  FAVOURITES_URLS,
+} from "../../../../Services/END_POINTS";
+import type { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import loading from "../../../../Images/loading.gif";
 
 interface RoomsCardProps {
   room: {
@@ -20,9 +27,48 @@ interface RoomsCardProps {
 
 const RoomCard = ({ room }: RoomsCardProps) => {
   const { loginData } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const addToFavs = async (roomId: string) => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.post(FAVOURITES_URLS.ADD_FAVOURITE, {
+        roomId,
+      });
+      toast.success(response.data.message);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data?.message || "Something went wrong");
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <>
-      {" "}
+      {isLoading && (
+        <Grid
+          size={{ xs: 12 }}
+          sx={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            height: "100vh",
+            width: "100vw",
+            zIndex: "9999",
+            bgcolor: "#e5e5e573",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src={loading}
+            alt="loading"
+            style={{ width: "5%"}}
+          ></img>
+        </Grid>
+      )}
       <Grid size={{ xs: 12, sm: 6, md: 4 }} key={room?._id} sx={{ my: 2 }}>
         <Box
           sx={{
@@ -93,9 +139,7 @@ const RoomCard = ({ room }: RoomsCardProps) => {
             {localStorage.getItem("token") && loginData ? (
               <Tooltip title="Favorite">
                 <IconButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
+                  onClick={() => addToFavs(room._id)}
                   size="small"
                   sx={{
                     pointerEvents: "auto",

@@ -1,11 +1,13 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
-import axios from "axios";
+import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import FavCard from "./FavCard";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import loading from "../../../../Images/loading.gif";
 import {
   axiosInstance,
+  FAVOURITES_URLS,
   USER_ROOMS_URLS,
 } from "../../../../Services/END_POINTS";
 interface Room {
@@ -16,6 +18,7 @@ interface Room {
 }
 const MostAds = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +42,7 @@ const MostAds = () => {
     return localStorage.getItem("token") !== null;
   };
 
-  const handleImageClick = async (id: string) => {
+  const handleImageClick = async (roomId: string) => {
     if (!isLoggedIn()) {
       toast.error(
         "You are not logged in. Please login first to continue your Add Favorite room step."
@@ -48,21 +51,15 @@ const MostAds = () => {
     }
 
     try {
-      const res = await axios.post(
-        `https://upskilling-egypt.com:3000/api/v0/portal/favorite-rooms`,
-        {
-          roomId: id,
-        },
-        {
-          headers: { Authorization: localStorage.getItem("token") },
-        }
-      );
-      toast.info("response", res.data);
-      navigate("/your-favorite");
-      toast.success("Great choice! The room has been added to your favorites ");
-    } catch (error) {
-      console.error("Error sending favorite room:", error);
+      setIsLoading(true);
+      const response = await axiosInstance.post(FAVOURITES_URLS.ADD_FAVOURITE, { roomId });
+      toast.success(response.data.message)
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data?.message || "Something went wrong");
+      console.log(error);
     }
+    setIsLoading(false);
   };
 
   const handleViewClick = (id: string) => {
@@ -71,6 +68,30 @@ const MostAds = () => {
   return (
     <>
       {" "}
+      {isLoading && (
+          <Grid
+            size={{ xs: 12 }}
+            sx={{
+              position: "fixed",
+              top: "0",
+              left: "0",
+              height: "100%",
+              zIndex: "9999",
+              bgcolor: "#e5e5e573",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width:'100vw'
+            }}
+          >
+            <img
+              src={loading}
+              alt="loading"
+              style={{ width: "5%", textAlign: "center" }}
+            ></img>
+          </Grid>
+        )}
+
       <Container sx={{ marginBottom: 5 }}>
         <Typography
           sx={{
@@ -90,7 +111,7 @@ const MostAds = () => {
             {rooms?.length > 0 && (
               <FavCard
                 room={rooms[0]}
-                onFavorite={handleImageClick}
+                onFavorite={()=>handleImageClick(rooms[0]._id)}
                 onView={handleViewClick}
                 isLarge={true}
               />
@@ -103,7 +124,7 @@ const MostAds = () => {
                 <Grid item xs={6} md={4} key={room._id}>
                   <FavCard
                     room={room}
-                    onFavorite={handleImageClick}
+                    onFavorite={()=>handleImageClick(room._id)}
                     onView={handleViewClick}
                   />
                 </Grid>

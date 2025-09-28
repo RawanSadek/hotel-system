@@ -33,7 +33,7 @@ import { axiosInstance, ROOMPORTAL_URL } from "../../../Services/END_POINTS";
 import type { RoomsListInterface } from "../../../Services/INTERFACE";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import loading from "../../../Images/loading.gif";
+// import loading from "../../../Images/loading.gif";
 import { AuthContext } from "../../../Contexts/AuthContext/AuthContext";
 
 export default function RoomDetails() {
@@ -80,6 +80,7 @@ export default function RoomDetails() {
   };
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (id) getRoomDetails();
   }, [id]);
 const { loginData } = useContext(AuthContext);

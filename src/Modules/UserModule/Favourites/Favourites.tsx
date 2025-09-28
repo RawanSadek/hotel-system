@@ -87,6 +87,15 @@ export default function Favourites() {
         Your Favourites
       </Typography>
 
+      <Typography
+          variant="h6"
+          textAlign="start"
+          fontWeight={500}
+          sx={{ color: "#152C5B" }}
+        >
+          Your Rooms
+        </Typography>
+
       <Grid container spacing={2}>
         {isLoading && (
           <Grid
@@ -97,7 +106,7 @@ export default function Favourites() {
               left: "0",
               height: "100%",
               zIndex: "9999",
-              bgcolor: "#dbdbdbb0",
+              bgcolor: "#e5e5e573",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

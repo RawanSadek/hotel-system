@@ -9,7 +9,6 @@ import ResetPassword from "./Modules/AuthModule/ResetPassword/ResetPassword";
 import ChangePassword from "./Modules/AuthModule/ChangePassword/ChangePassword";
 import MasterLayout from "./Modules/Shared/MasterLayout/MasterLayout";
 import Login from "./Modules/AuthModule/Login/Login";
-import AdminLayout from "./Modules/Shared/AdminLayout/AdminLayout";
 import RoomDetails from "./Modules/UserModule/RoomDetails/RoomDetails";
 import Explore from "./Modules/UserModule/Explore/Explore";
 import Favourites from "./Modules/UserModule/Favourites/Favourites";
@@ -22,8 +21,10 @@ import FacilitiesView from "./Modules/AdminModule/Facilities/FacilitiesView";
 import ADSList from "./Modules/AdminModule/ADS/ADSList";
 import UsersList from "./Modules/AdminModule/Users/UsersList";
 import Payment from "./Modules/UserModule/Payment/Payment";
-
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -37,7 +38,6 @@ function App() {
         { path: "explore", element: <Explore /> },
         { path: "favourites", element: <Favourites /> },
         { path: "Payment", element: <Payment /> },
-
       ],
     },
     {
@@ -55,30 +55,33 @@ function App() {
 
     {
       path: "dashboard",
+
       element:
           <AdminLayout />
        
       ,
       errorElement: <NotFound />,
       children: [
-        {index: true, element: <AdminDashboard/>},
-        {path: 'rooms', element: <RoomsList/>},
-        {path: 'add-room', element: <RoomData/>},
-        {path: 'edit-room/:id', element: <RoomData/>},
-        {path: 'view-room/:id', element: <RoomData/>},
+        { index: true, element: <AdminDashboard /> },
+        { path: "rooms", element: <RoomsList /> },
+        { path: "add-room", element: <RoomData /> },
+        { path: "edit-room/:id", element: <RoomData /> },
+        { path: "view-room/:id", element: <RoomData /> },
         { path: "facilities", element: <FacilitiesView /> },
-        {path: 'ads', element: <ADSList/>},
-        {path: 'booking-list', element: <BookingList/>},
-        {path: 'users-list', element: <UsersList/>},
-      ]
+        { path: "ads", element: <ADSList /> },
+        { path: "booking-list", element: <BookingList /> },
+        { path: "users-list", element: <UsersList /> },
+      ],
     },
   ]);
   return (
     <>
-      <ToastContainer />
-      <AuthContextProvider>
-        <RouterProvider router={routes}></RouterProvider>
-      </AuthContextProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <ToastContainer />
+        <AuthContextProvider>
+          <RouterProvider router={routes}></RouterProvider>
+        </AuthContextProvider>
+      </LocalizationProvider>
     </>
   );
 }

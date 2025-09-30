@@ -22,9 +22,15 @@ import FacilitiesView from "./Modules/AdminModule/Facilities/FacilitiesView";
 import ADSList from "./Modules/AdminModule/ADS/ADSList";
 import UsersList from "./Modules/AdminModule/Users/UsersList";
 import Payment from "./Modules/UserModule/Payment/Payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import PaymentSuccess from "./Modules/UserModule/Payment/component/PaymentSuccess";
 
+  const stripe = loadStripe("pk_test_51SC5ir4t9AN1sPAiuqEPOI2HMWro6YkwziPoqvl1t3mwIJ8STKujXgajpo9COa3vnH9Tfq9H6CdpCyxGuC7MjUxb0071oUz3OI")
 
 function App() {
+
+
   const routes = createBrowserRouter([
     {
       path: "",
@@ -37,6 +43,8 @@ function App() {
         { path: "explore", element: <Explore /> },
         { path: "favourites", element: <Favourites /> },
         { path: "Payment", element: <Payment /> },
+        { path: "payment/success", element: <PaymentSuccess /> },
+
 
       ],
     },
@@ -75,10 +83,12 @@ function App() {
   ]);
   return (
     <>
-      <ToastContainer />
-      <AuthContextProvider>
-        <RouterProvider router={routes}></RouterProvider>
-      </AuthContextProvider>
+     <ToastContainer />
+      <Elements stripe={stripe}>
+        <AuthContextProvider>
+          <RouterProvider router={routes} />
+        </AuthContextProvider>
+      </Elements>
     </>
   );
 }

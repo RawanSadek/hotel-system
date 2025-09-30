@@ -97,3 +97,7 @@ export const FAVOURITES_URLS = {
   ADD_FAVOURITE: `${userPortalBaseURL}/favorite-rooms`,
   REMOVE_FAVOURITE: (id: string) => `${userPortalBaseURL}/favorite-rooms/${id}`,
 };
+//Booking URLs
+export const PAYMENT_URLS = {
+  GET_ALL: `${userPortalBaseURL}/booking`,
+};

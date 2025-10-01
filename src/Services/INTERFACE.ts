@@ -22,18 +22,7 @@ export interface changePassDataTypes {
   newPassword: string;
   confirmPassword: string;
 }
-export interface BookingListInterface {
-  _id: string;
-  roomNumber: string;
-  userId: string;
-  checkInDate: string;
-  checkOutDate: string;
-  totalPrice: number;
-  startDate: string;
-  endDate: string;
-  user: { userName: string } | null;
-  room: RoomsListInterface | null;
-}
+
 export interface BookingPopUpInterface {
   open: boolean;
   handleClose: () => void;
@@ -148,11 +137,19 @@ export interface BookingListInterface {
   _id: string;
   totalPrice: number;
   room: RoomsListInterface | null;
+<<<<<<< HEAD
   user: {userName: string } | null;
   // user: { _id: string; userName: string } | null;
+=======
+  user: UserListInterface | null;
+>>>>>>> 83f7f573756417b4cc7c91e164327b095472c65e
   startDate: string;
   endDate: string;
   status: string;
+  roomNumber: string;
+  userId: string;
+  checkInDate: string;
+  checkOutDate: string;
 }
 export interface UserListInterface {
   _id: string;

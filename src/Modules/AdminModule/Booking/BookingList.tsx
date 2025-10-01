@@ -9,7 +9,7 @@ import { axiosInstance, BOOKING_URLS } from "../../../Services/END_POINTS";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
-import type { BookingListInterface } from "../../../Services/INTERFACE";
+// import type { BookingListInterface } from "../../../Services/INTERFACE";
 import Box from "@mui/material/Box";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import loading from "../../../Images/loading.gif";

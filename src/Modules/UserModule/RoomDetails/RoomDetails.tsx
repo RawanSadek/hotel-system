@@ -101,6 +101,7 @@ export default function RoomDetails() {
   };
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (id) getRoomDetails();
     if (!checkIn) return;
     if (!checkOut || !checkOut.isAfter(checkIn)) {

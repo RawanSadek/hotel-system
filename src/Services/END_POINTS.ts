@@ -97,7 +97,13 @@ export const FAVOURITES_URLS = {
   ADD_FAVOURITE: `${userPortalBaseURL}/favorite-rooms`,
   REMOVE_FAVOURITE: (id: string) => `${userPortalBaseURL}/favorite-rooms/${id}`,
 };
+<<<<<<< HEAD
 //Booking URLs
 export const PAYMENT_URLS = {
   GET_ALL: `${userPortalBaseURL}/booking`,
 };
+=======
+export const USER_ROOMS_URLS = {
+  GET_ALL: `${userPortalBaseURL}/rooms/available?page=1&size=10&startDate=2023-01-20&endDate=2023-01-30`,
+};
+>>>>>>> 83f7f573756417b4cc7c91e164327b095472c65e

@@ -51,13 +51,15 @@ export default function RoomDetails() {
   const [checkOut, setCheckOut] = React.useState<Dayjs | null>(
     dayjs().add(2, "day")
   );
+    // const [totalPrice, setTotalPrice] = React.useState(0);
+   
   const [rating, setRating] = React.useState<number | null>(4.5);
   const [rateMessage, setRateMessage] = React.useState("");
   const [comment, setComment] = React.useState("");
   const [errors, setErrors] = useState<{ checkIn?: string; checkOut?: string }>(
     {}
   );
-
+ 
   const nightlyRate = 280;
   const maxNights = 30;
 
@@ -99,6 +101,7 @@ export default function RoomDetails() {
     }
     setIsLoading(false);
   };
+  
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -144,6 +147,7 @@ export default function RoomDetails() {
           roomId: id,
           checkIn: checkIn?.toISOString(),
           checkOut: checkOut?.toISOString(),
+          totalPrice: total
         },
       });
     } else {
@@ -157,6 +161,7 @@ export default function RoomDetails() {
     setLoginPromptOpen(false);
     navigate("/login", { state: { from: location }, replace: true });
   };
+
 
   return (
     <>
@@ -303,7 +308,10 @@ export default function RoomDetails() {
                 to make lives better.
               </Typography>
             </Stack>
+      
 
+
+      
             {/* Amenities */}
             <Grid container spacing={3} sx={{ mt: 3 }}>
               <Grid size={{ xs: 6, md: 3 }}>
@@ -464,6 +472,7 @@ export default function RoomDetails() {
                         nights === 1 ? "night" : "nights"
                       }`
                     : "Select dates to see the total"}
+                    
                 </Typography>
                 <Button
                   variant="contained"

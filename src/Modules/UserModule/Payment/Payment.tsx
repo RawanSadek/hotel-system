@@ -18,29 +18,41 @@ import { useState, type FormEvent } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import StepHeader from "./component/StepHeader";
+import { axiosInstance, PAYMENT_URLS } from "../../../Services/END_POINTS";
 
 export default function Payment() {
   const navigate = useNavigate()
   const stripe = useStripe();
   const elements = useElements();
-  const { state } = useLocation() as { state?: { roomId?: string } };
+  const { roomId, chechIn } = useLocation() as { state?: { roomId?: string } };
   const roomId = state?.roomId;
   const [isPaying, setIsPaying] = useState(false);
-
+  const [idBooking, setIdBooking] = useState(null)
   //apii calling
+
+  const creatBooking = async()=>{
+    try {
+      const response = await axiosInstance(PAYMENT_URLS.CREATE_BOOKING)
+    } catch (error) {
+      
+    }
+  }
+
   const payBooking = async (
-    idBooking: string,
-    stripeToken: string,
+    token: string,
     address?: any
   ) => {
-    const auth = localStorage.getItem("token");
-    await axios.post(
-      `https://upskilling-egypt.com:3000/api/v0/portal/booking/${idBooking}/pay`,
-      { token: stripeToken, address },
-      auth ? { headers: { Authorization: `Bearer ${auth}` } } : undefined
+   try {
+     const res = await axiosInstance.post(PAYMENT_URLS.pay(idBooking)
+      ,
+      { token, address },
     );
+    
+   } catch (error) {
+    console.log(error)
+   }
   };
-
+ 
   const handlePayment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!stripe || !elements) return;

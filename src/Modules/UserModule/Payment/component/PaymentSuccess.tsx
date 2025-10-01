@@ -2,9 +2,14 @@ import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import StepHeader from "./StepHeader";
 import suceesimg from "../../../../Images/complete.png"
+import { useEffect } from "react";
 
 export default function PaymentSuccess() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  },[]);
 
   return (
     <Box sx={{ maxWidth: 720, mx: "auto", px: 2, py: 6, textAlign: "center" }}>

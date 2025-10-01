@@ -3,8 +3,12 @@ import AdsSwiper from "./components/AdsSwiper";
 import MostAds from "./components/MostAds";
 import reviewImg from "../../../Images/review.png";
 import ReviewCard from "./components/ReviewCard";
+import { useEffect } from "react";
 
 export default function LandingPage() {
+  useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },[]);
   return (
     <>
       <Home />

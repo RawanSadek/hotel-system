@@ -5,54 +5,54 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 
-import {
-  Box,
-  Typography,
-  Grid,
-  Stack,
-  Divider,
-  
-  Button,
-} from "@mui/material";
-import { useState, type FormEvent } from "react";
-import axios from "axios";
+import { Box, Typography, Grid, Stack, Divider, Button } from "@mui/material";
+import { useEffect, useState, type FormEvent } from "react";
+import { AxiosError } from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import StepHeader from "./component/StepHeader";
 import { axiosInstance, PAYMENT_URLS } from "../../../Services/END_POINTS";
+import { toast } from "react-toastify";
 
 export default function Payment() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
-  const { roomId, chechIn } = useLocation() as { state?: { roomId?: string } };
+  const { state } = useLocation();
   const roomId = state?.roomId;
+  const chechInDate = new Date(state?.checkIn).toISOString().split("T")[0];
+  const checkOutDate = new Date(state?.checkOut).toISOString().split("T")[0];
+  const totalPrice = state?.totalPrice;
+
   const [isPaying, setIsPaying] = useState(false);
-  const [idBooking, setIdBooking] = useState(null)
+  const [idBooking, setIdBooking] = useState(null);
   //apii calling
 
-  const creatBooking = async()=>{
+  const creatBooking = async () => {
     try {
-      const response = await axiosInstance(PAYMENT_URLS.CREATE_BOOKING)
-    } catch (error) {
-      
+      const response = await axiosInstance.post(PAYMENT_URLS.CREATE_BOOKING, {
+        startDate: chechInDate,
+        endDate: checkOutDate,
+        room: roomId,
+        totalPrice: totalPrice,
+      });
+      setIdBooking(response?.data?.data?.booking?._id);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error?.response?.data?.message || "Something went wrong");
+      console.log(error);
     }
-  }
-
-  const payBooking = async (
-    token: string,
-    address?: any
-  ) => {
-   try {
-     const res = await axiosInstance.post(PAYMENT_URLS.pay(idBooking)
-      ,
-      { token, address },
-    );
-    
-   } catch (error) {
-    console.log(error)
-   }
   };
- 
+
+  const payBooking = async (tokenId: string) => {
+    try {
+      await axiosInstance.post(PAYMENT_URLS.PAY(idBooking!), {
+        tokenId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handlePayment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!stripe || !elements) return;
@@ -64,13 +64,13 @@ export default function Payment() {
     setIsPaying(true);
     try {
       const cardElement = elements.getElement(CardElement);
-      const addressElement = elements.getElement(AddressElement);
+      // const addressElement = elements.getElement(AddressElement);
       if (!cardElement) {
         setIsPaying(false);
         return;
       }
 
-      const addressValue = await addressElement?.getValue();
+      // const addressValue = await addressElement?.getValue();
 
       const { token, error } = await stripe.createToken(cardElement);
       if (error || !token) {
@@ -78,8 +78,8 @@ export default function Payment() {
         return;
       }
 
-      await payBooking(roomId, token.id, addressValue?.value);
-              navigate("/payment/success", { replace: true });
+      await payBooking(token.id);
+      navigate("/payment/success");
 
       console.log("Paid successfully");
     } catch (err) {
@@ -89,10 +89,15 @@ export default function Payment() {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    creatBooking();
+  }, []);
+
   return (
     <>
       <Box sx={{ maxWidth: 800, mx: "auto", px: { xs: 2, md: 4 }, py: 4 }}>
-    <StepHeader step={2} />
+        <StepHeader step={2} />
         {/* Title */}
         <Typography
           variant="h4"
@@ -113,8 +118,8 @@ export default function Payment() {
         {/* Content */}
         <Grid container spacing={4}>
           {/* Left column: bank info */}
-  <Grid item xs={12} md={6}>
-                <Stack spacing={2.5}>
+          <Grid item xs={12} md={6}>
+            <Stack spacing={2.5}>
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
                   Transfer Pembayaran:
@@ -183,7 +188,9 @@ export default function Payment() {
           </Grid>
 
           {/* Right column: form (UI only) */}
-  <Grid item xs={12} md={6}>            <Box component="form" onSubmit={handlePayment}>
+          <Grid item xs={12} md={6}>
+            {" "}
+            <Box component="form" onSubmit={handlePayment}>
               <Stack spacing={4}>
                 <div
                   style={{

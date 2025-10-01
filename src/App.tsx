@@ -86,17 +86,13 @@ function App() {
   ]);
   return (
     <>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
      <ToastContainer />
       <Elements stripe={stripe}>
         <AuthContextProvider>
           <RouterProvider router={routes} />
         </AuthContextProvider>
       </Elements>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <ToastContainer />
-        <AuthContextProvider>
-          <RouterProvider router={routes}></RouterProvider>
-        </AuthContextProvider>
       </LocalizationProvider>
     </>
   );

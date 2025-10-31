@@ -1,8 +1,9 @@
+import DashBoard from "./Components/DashBoard";
 
 export default function AdminDashboard() {
   return (
     <div>
-      AdminDashboard
+      <DashBoard />
     </div>
-  )
+  );
 }

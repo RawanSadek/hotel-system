@@ -1,0 +1,124 @@
+{
+  "welcome": "مرحبا",
+  "admin_dashboard": "لوحة تحكم المدير",
+  "logout": "تسجيل الخروج",
+  "admin_navbar": "شريط أدوات المدير",
+  "admin_sidebar": "شريط جانبي للمدير",
+  "Sign_in_to_Roamhome": "تسجيل الدخول إلى روم هوم",
+  "Change_Password": "تغيير كلمة المرور",
+  "Sign_up_to_Roamhome": "التسجيل في روم هوم",
+  "Forgot_Password": "نسيت كلمة المرور؟",
+  "Reset_Password": "إعادة تعيين كلمة المرور",
+  "Password": "كلمة المرور",
+  "Confirm_Password": "تأكيد كلمة المرور",
+  "Email_Address": "عنوان البريد الإلكتروني",
+  "Username": "اسم المستخدم",
+  "Phone_Number": "رقم الهاتف",
+  "Country": "البلد",
+  "Role": "الصلاحية",
+  "Type_Here": "من فضلك اكتب هنا...",
+  "login": {
+    "signIn": "تسجيل الدخول",
+    "noAccount": "إذا لم يكن لديك حساب ، قم بالتسجيل",
+    "registerPrompt": "يمكنك التسجيل هنا!"
+  },
+  "change_password": {
+    "Please_fill_the_below_data": "يرجى ملء البيانات أدناه",
+    "New_Password": "كلمة المرور الجديدة",
+    "Confirm_Password": "تأكيد كلمة المرور",
+    "Save": "حفظ"
+  },
+  "register": {
+    "signup": "إنشاء حساب",
+    "alreadyAccount": "إذا كان لديك حساب بالفعل قم بالتسجيل",
+    "youCanSignin": "يمكنك تسجيل الدخول",
+    "loginHere": "من هنا !",
+    "uploadImg": "رفع صورة"
+  },
+  "rooms_table_head": {
+    "room_number": "رقم الغرفة",
+    "image": "الصورة",
+    "price": "السعر",
+    "dicount": "تخفيض",
+    "capacity": "السعة"
+  },
+  "Bookings_table_head": {
+    "room_number": "رقم الغرفة",
+    "price": "السعر",
+    "strat_date": "تاريخ البداية",
+    "end_date": "تاريخ النهاية",
+    "user": "المستخدم"
+  },
+  "facilities": {
+    "add_new_facility": "إضافة مرفق جديد",
+    "facilities_table_details": "تفاصيل جدول المرافق",
+    "check_all_details": "يمكنك التحقق من جميع التفاصيل",
+    "facilities_table_head": {
+      "id": "المعرف",
+      "name": "الاسم",
+      "createdBy": "تم الإنشاء بواسطة",
+      "createdAt": "تم الإنشاء في"
+    }
+  },
+  "ADS": {
+    "add_new_ADS": "إضافة إعلان جديد",
+    "ADS_table_details": "تفاصيل جدول الإعلانات",
+    "check_all_details": "يمكنك التحقق من جميع التفاصيل",
+    "ADS_table_head": {
+      "room_number": "رقم الغرفة",
+      "price": "السعر",
+      "discount": "التخفيض",
+      "capacity": "السعة",
+      "status": "الحالة",
+      "date": "التاريخ",
+      "image": "الصورة",
+      "createdBy": "تم الإنشاء بواسطة",
+      "createdAt": "تم الإنشاء في"
+    }
+  },
+  "list_actions": {
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف"
+  },
+"User":{
+  "User Table Details":"تفاصيل جدول المستخدمين",
+  "You can check all details": "يمكنك التحقق من جميع التفاصيل",
+
+ "Users_table_head": {
+    "userName": "أسم المستخدم",
+    "image": "الصورة",
+    "email": "البريد الإلكتروني",
+    "role": "نوع المستخدم",
+    "phoneNumber": "رقم الهاتف"
+  }
+},
+"Sidebar": {
+    "home": "الصفحة الرئيسية",
+    "users": "المستخدمون",
+    "rooms": "الغرف",
+    "ads": "الإعلانات",
+    "booking": "الحجوزات",
+    "facilities": "الخدمات",
+    "changePassword": "تغيير كلمة المرور",
+    "logout": "تسجيل الخروج"
+  
+  },
+  "Navbar": {
+    "profile": " حسابي"
+  },
+
+  "forgot_title": "نسيت كلمة المرور",
+  "forgot_subtitle": "إذا كان لديك حساب بالفعل، سجل الدخول",
+  "forgot_login_text": "يمكنك",
+  "forgot_login_link": "تسجيل الدخول من هنا!",
+  "email_label": "البريد الإلكتروني",
+  "email_placeholder": "يرجى الكتابة هنا...",
+  "forgot_send_mail": "إرسال البريد",
+  "forgot_check_email": "تحقق من بريدك الإلكتروني للحصول على تعليمات إعادة تعيين كلمة المرور.",
+  "forgot_error": "حدث خطأ ما",
+  "delete": "حذف",
+  "cancel": "إلغاء",
+  "deleteRoom": "حذف هذه الغرفة؟",
+  "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنصر؟ إذا كنت متأكداً، انقر فقط على حذف"
+}

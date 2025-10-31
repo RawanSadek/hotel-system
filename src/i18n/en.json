@@ -1,0 +1,121 @@
+{
+  "welcome": "Welcome",
+  "admin_dashboard": "Admin Dashboard",
+  "logout": "Logout",
+  "admin_navbar": "Admin Navbar",
+  "admin_sidebar": "Admin Sidebar",
+  "Sign_in_to_Roamhome": "Sign in to Roamhome",
+  "Change_Password": "Change Password",
+  "Sign_up_to_Roamhome": "Sign up to Roamhome",
+  "Forgot_Password": "Forgot Password?",
+  "Reset_Password": "Reset Password",
+  "Password": "Password",
+  "Confirm_Password": "Confirm Password",
+  "Email_Address": "Email Address",
+  "Username": "User Name",
+  "Phone_Number": "Phone Number",
+  "Country": "Country",
+  "Role": "Role",
+  "Type_Here": "Please type here...",
+  "login": {
+    "signIn": "Sign In",
+    "noAccount": "If you don't have an account register",
+    "registerPrompt": "You can register here!"
+  },
+  "change_password": {
+    "Please_fill_the_below_data": "Please fill the below data",
+    "New_Password": "New Password",
+    "Confirm_Password": "Confirm Password",
+    "Save": "Save"
+  },
+  "register": {
+    "signup": "Sign up",
+    "alreadyAccount": "If you already have an account register",
+    "youCanSignin": "You can",
+    "loginHere": "Login here !",
+    "uploadImg": "Upload Image"
+  },
+  "rooms_table_head": {
+    "room_number": "Room Number",
+    "image": "Image",
+    "price": "Price",
+    "discount": "Discount",
+    "capacity": "Capacity"
+  },
+  "Bookings_table_head": {
+    "room_number": "Room Number",
+    "price": "Price",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "user": "User"
+  },
+  "facilities": {
+    "add_new_facility": "Add New Facility",
+    "facilities_table_details": "Facilities Table Details",
+    "check_all_details": "You can check all details",
+    "facilities_table_head": {
+      "id": "ID",
+      "name": "Name",
+      "createdBy": "Created By",
+      "createdAt": "Created At"
+    }
+  },
+  "ADS": {
+    "add_new_ADS": "Add New ADS",
+    "ADS_table_details": "ADS Table Details",
+    "check_all_details": "You can check all details",
+    "ADS_table_head": {
+      "room_number": "Room Number",
+      "price": "Price",
+      "discount": "Discount",
+      "capacity": "Capacity",
+      "status": "Status",
+      "date": "Date",
+      "updatedAt": "Updated At",
+      "createdAt": "Created At"
+    }
+  },
+
+  "list_actions": {
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+"User":{
+  "User Table Details":" User Table Details ",
+  "You can check all details": "You can check all details",
+    "Users_table_head": {
+    "userName": "UserName",
+    "image": "Image",
+    "email": "Email",
+    "role": "Role",
+    "phoneNumber": "PhoneNumber"
+  }
+},
+   "Sidebar": {
+    "home": "Home",
+    "users": "Users",
+    "rooms": "Rooms",
+    "ads": "Ads",
+    "booking": "Booking",
+    "facilities": "Facilities",
+    "changePassword": "Change password",
+    "logout": "Logout"
+  },
+   "Navbar": {
+    "profile": " profile"
+  },
+  "forgot_title": "Forgot password",
+  "forgot_subtitle": "If you already have an account register",
+  "forgot_login_text": "You can",
+  "forgot_login_link": "Login here !",
+  "email_label": "Email Address",
+  "email_placeholder": "Please type here...",
+  "forgot_send_mail": "send mail",
+  "forgot_check_email": "Check your email for password reset instructions.",
+  "forgot_error": "Something went wrong",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "deleteRoom": "Delete This Room ?",
+  "deleteConfirmation": "are you sure you want to delete this item ? if you are sure just click on delete it"
+}

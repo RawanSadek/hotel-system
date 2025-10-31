@@ -137,12 +137,7 @@ export interface BookingListInterface {
   _id: string;
   totalPrice: number;
   room: RoomsListInterface | null;
-<<<<<<< HEAD
-  user: {userName: string } | null;
-  // user: { _id: string; userName: string } | null;
-=======
   user: UserListInterface | null;
->>>>>>> 83f7f573756417b4cc7c91e164327b095472c65e
   startDate: string;
   endDate: string;
   status: string;
@@ -154,10 +149,9 @@ export interface BookingListInterface {
 export interface UserListInterface {
   _id: string;
   userName: string;
-  profileImage: string
+  profileImage: string;
   email: string;
   role: string;
   phoneNumber: number | string;
-  country:string;
-
+  country: string;
 }
